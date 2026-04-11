@@ -1,6 +1,6 @@
 (function () {
     const btn = document.getElementById("toggle-facts");
-    const panel = document.getElementById("hidden-content");
+    const panel = document.getElementById("fun-fact-content");
     if (!btn || !panel) {
         return;
     }
@@ -10,7 +10,7 @@
     if (redesign) {
         const setOpen = (open) => {
             panel.hidden = !open;
-            btn.textContent = open ? "Hide fun facts ↑" : "Fun facts thread ↓";
+            btn.textContent = open ? "HIDE FUN FACTS" : "FUN FACTS";
             btn.setAttribute("aria-expanded", open ? "true" : "false");
         };
         setOpen(false);

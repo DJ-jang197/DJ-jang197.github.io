@@ -10,86 +10,86 @@
                 const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
                 if (saved === "dark" || (!saved && prefersDark)) {
                     document.documentElement.setAttribute("data-theme", "dark");
+                } else {
+                    document.documentElement.removeAttribute("data-theme");
                 }
             } catch (_) {}
         })();
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Monoton&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/Webpage_Home.css">
     <title>Daniel Jang's WebPage: About</title>
 </head>
-
-<body>
-    <nav> <!-- Navigation Bar-->
-        <table>
-            <tr>
-                <td><a href="index.html#hero"><b>Home</b></a></td>
-                <td class="tab-nav"><a href="Webpage_About.html"><b>About</b></a></td>
-                <td><a href="index.html#projects"><b>Projects</b></a></td>
-                <td><a href="Webpage_Contact.html"><b>Contact</b></a></td> 
-            </tr>
-        </table>
+<body class="site-redesign about-page">
+    <nav class="site-nav" aria-label="Primary">
+        <div class="nav-inner">
+            <a class="nav-brand" href="index.html#hero">DJ</a>
+            <ul class="nav-links">
+                <li><a href="index.html#hero">Home</a></li>
+                <li><a href="Webpage_About.html" aria-current="page">About</a></li>
+                <li><a href="index.html#projects">Projects</a></li>
+                <li><a href="Webpage_Contact.html">Contact</a></li>
+            </ul>
+        </div>
     </nav>
 
-    <header> <!-- About header-->
-        <br>
-        <h2 class="big-font">Who is Daniel Jang?</h2>
-        <br>
-    </header>
+    <main class="about-main">
+        <h1 class="about-page-title reveal-on-scroll">Who is Daniel Jang?</h1>
 
-    <section class="About-Content"> <!-- About Content-->
-        <div class="about-aspirations">
-            <p>
-                I am studying Computer Science at Waterloo with a focus on cybersecurity, 
-                driven by the belief that as technology becomes more accessible, the need for secure, thoughtful systems grows. I also have a strong interest in software development and data science.
-                <br>I thrive in collaborative environments and am motivated by challenges that require both technical expertise and creative problem-solving.
-            </p>
-        </div>
-        <ul class="about-bullets">
-            <li>Computer Science student at the University of Waterloo, in the Co-op program.</li>
-            <li>Programming experience includes Python, Java, C, HTML/CSS, and JavaScript.</li>
-            <li>Languages: English, Korean, and French (fluently).</li>
-            <li>Questions or introductions are welcome via the <b>Contact page</b>.</li>
-        </ul>
-        <br>
-        <div class="about-img-container"> <!-- Container for images -->
-            <figure class="hover-caption-wrap about-image-wrap">
-                <img src="../images/LD_Perm.jpg" alt="Daniel Jang Picture" class="about-images">
-                <figcaption class="image-caption">At work as a part-time Tech Specialist (Feb 2025)</figcaption>
-            </figure>
-            <figure class="hover-caption-wrap about-image-wrap">
-                <img src="../images/Family_Canyon.jpg" alt="Daniel Jang's Family" class="about-images">
-                <figcaption class="image-caption">My family at the Anteloupe Canyon (July 2023)</figcaption>
-            </figure>
-            <figure class="hover-caption-wrap about-image-wrap">
-                <img src="../images/Waterloo_Snow.jpg" alt="University of Waterloo Winter" class="about-images">
-                <figcaption class="image-caption">University of Waterloo in the winter (Dec 2025)</figcaption>
-            </figure>
-        </div>
-    </section>
-    <br>
-    <button id="toggle-facts" class="toggle-facts general-button">
-        <b>Fun Facts!</b>
-    </button>
+        <section class="about-chat" aria-label="About">
+            <div class="chat-bubble chat-bubble--right reveal-on-scroll">
+                <p>My aspiration is to become a software engineer who can build meaningful products that improve people's lives. I am passionate about using technology to solve real-world problems and create positive change in society. Through my studies and projects, I aim to develop the technical skills and creative mindset needed to contribute to innovative solutions that make a difference.</p>
+            </div>
+            <div class="chat-bubble chat-bubble--right reveal-on-scroll">
+                <ul class="chat-list">
+                    <li>Currently studying Computer Science at the University of Waterloo.</li>
+                    <li>Interested in software development, web technologies, and artificial intelligence.</li>
+                    <li>Enjoys collaborating on team projects and learning new programming languages.</li>
+                    <li>Outside of coding, I enjoy music, photography, and exploring new places.</li>
+                </ul>
+            </div>
 
-    <div id="hidden-content" class="fact-content">
-        <h2>Here are some fun facts about me!</h2>
-        <ul>
-            <li>I was born and predominantly raised in Chilliwack, British Columbia. For reference, it is a 1h 22min drive to Vancouver.</li>
-            <li>That being said, my early childhood was in Prince George, British Columbia. For reference, it is a 8h 41min drive to Vancouver.</li>
-            <li>The first programming language I learned was Java [System.out.println("Hello World!")].</li>
-            <li>I used to wear glasses, but now it is worn casually. Hopefully that clarifies who I am in photos!</li>
-            <li>I am trilingual; I can speak English, Korean, and French fluently.</li>
-            <li>The Toronto Blue Jays is my favorite sports team (2025 World Series Game 7 still hurts).</li>
-        </ul>
-    </div>
-    <footer>
-        <p>2 Corinthians 5:7 NIV - For we live by faith, not by sight.</p>
+            <div class="about-gallery reveal-on-scroll">
+                <figure class="about-shot">
+                    <img src="../images/tech_specialist.jpg" alt="Daniel working as a Tech Specialist" class="photo-crisp">
+                    <figcaption>At work as a part-time Tech Specialist (Feb 2025)</figcaption>
+                </figure>
+                <figure class="about-shot">
+                    <img src="../images/antelope_canyon.jpg" alt="Daniel's family at Antelope Canyon" class="photo-crisp">
+                    <figcaption>My family at the Anteloupe Canyon (July 2023)</figcaption>
+                </figure>
+                <figure class="about-shot">
+                    <img src="../images/uw_winter.jpg" alt="University of Waterloo in winter" class="photo-crisp">
+                    <figcaption>University of Waterloo in the winter (Dec 2025)</figcaption>
+                </figure>
+            </div>
+
+            <aside class="fun-facts-aside reveal-on-scroll" id="fun-facts-sidebar" aria-labelledby="toggle-facts">
+                <button type="button" class="btn-deck" id="toggle-facts">FUN FACTS</button>
+                <div class="fact-thread" id="fun-fact-content" hidden>
+                    <div class="chat-bubble chat-bubble--right">
+                        <h2 class="fun-facts-heading">Here are some fun facts about me!</h2>
+                        <ul class="chat-list">
+                            <li>I have a twin brother who is also studying at the University of Waterloo.</li>
+                            <li>I enjoy playing the piano and have been playing for over 10 years.</li>
+                            <li>My favorite programming language is Python because of its simplicity and versatility.</li>
+                            <li>I love hiking and have visited several national parks across Canada.</li>
+                            <li>I am fluent in both English and Korean.</li>
+                        </ul>
+                    </div>
+                </div>
+            </aside>
+        </section>
+    </main>
+
+    <footer class="site-footer reveal-on-scroll">
+        <p>2 Corinthians 5:7 NIV — For we live by faith, not by sight.</p>
         <p>&copy; 2026 Daniel Jang. All rights reserved.</p>
     </footer>
-<script src="../js/Webpage_Main.js"></script>
-<script src="../js/Webpage_About.js"></script>
+
+    <script src="../js/Webpage_About.js"></script>
+    <script src="../js/Webpage_Main.js"></script>
 </body>
 </html>

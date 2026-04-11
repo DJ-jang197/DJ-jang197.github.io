@@ -19,14 +19,14 @@ function applyTheme(theme) {
 }
 
 function createThemeToggle(nav) {
-    if (!nav || document.body.classList.contains("site-redesign") || nav.querySelector(".theme-toggle")) {
+    if (!nav || nav.querySelector(".theme-toggle")) {
         return;
     }
 
     const toggleButton = document.createElement("button");
     toggleButton.type = "button";
     toggleButton.className = "theme-toggle";
-    toggleButton.setAttribute("aria-label", "Toggle dark mode");
+    toggleButton.setAttribute("aria-label", "Toggle light and dark mode");
     toggleButton.innerHTML = `
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
             <circle class="icon-sun-core" cx="12" cy="12" r="4" fill="currentColor"></circle>
@@ -46,7 +46,16 @@ function createThemeToggle(nav) {
         } catch (_) {}
     });
 
-    nav.appendChild(toggleButton);
+    if (document.body.classList.contains("site-redesign")) {
+        const inner = nav.querySelector(".nav-inner");
+        if (inner) {
+            inner.appendChild(toggleButton);
+        } else {
+            nav.appendChild(toggleButton);
+        }
+    } else {
+        nav.appendChild(toggleButton);
+    }
 }
 
 function createNavSocialLinks(nav) {
@@ -88,6 +97,12 @@ function createNavSocialLinks(nav) {
         wrap.appendChild(a);
     });
 
+    const contactSlot = nav.querySelector("[data-contact-social-slot]");
+    if (contactSlot) {
+        contactSlot.appendChild(wrap);
+        return;
+    }
+
     if (document.body.classList.contains("site-redesign")) {
         const inner = nav.querySelector(".nav-inner");
         const brand = inner && inner.querySelector(".nav-brand");
@@ -111,15 +126,20 @@ function updateScrollProgress() {
 }
 
 function setupRevealAnimations() {
-    const bubblePages =
-        document.body.classList.contains("site-redesign") || document.body.classList.contains("contact-layout");
+    const bubblePages = document.body.classList.contains("site-redesign");
     const selectors = bubblePages
-        ? ["[data-chat-bubble]", ".about-gallery", ".project-spotlight"]
-        : ["header", "section", ".project-list", ".home-images", ".about-images", ".general-button", ".view-website-button"];
+        ? [".reveal-on-scroll", "[data-chat-bubble]", ".about-gallery", ".project-spotlight"]
+        : ["header", "section", ".project-list", ".home-images", ".about-images", ".general-button", ".view-website-button", ".contact-panel"];
 
     const revealTargets = [];
+    const seen = new Set();
     selectors.forEach((sel) => {
-        document.querySelectorAll(sel).forEach((el) => revealTargets.push(el));
+        document.querySelectorAll(sel).forEach((el) => {
+            if (!seen.has(el)) {
+                seen.add(el);
+                revealTargets.push(el);
+            }
+        });
     });
 
     revealTargets.forEach((el) => {
@@ -264,6 +284,44 @@ function setupProjectCardStacks() {
     });
 }
 
+function appendRichBullet(li, text) {
+    const parts = String(text).split(/(\*\*[^*]+\*\*)/g);
+    parts.forEach((part) => {
+        if (!part) {
+            return;
+        }
+        if (part.startsWith("**") && part.endsWith("**")) {
+            const strong = document.createElement("strong");
+            strong.textContent = part.slice(2, -2);
+            li.appendChild(strong);
+        } else {
+            li.appendChild(document.createTextNode(part));
+        }
+    });
+}
+
+function setupHeroQuoteTypewriter() {
+    const el = document.getElementById("hero-typewriter");
+    if (!el) {
+        return;
+    }
+    const full = el.getAttribute("data-typewriter-text") || "";
+    el.textContent = "";
+    if (prefersReducedMotion || !full) {
+        el.textContent = full;
+        return;
+    }
+    let i = 0;
+    const step = () => {
+        if (i <= full.length) {
+            el.textContent = full.slice(0, i);
+            i += 1;
+            window.setTimeout(step, 42);
+        }
+    };
+    window.setTimeout(step, 280);
+}
+
 function setupTypewriterHeadlines() {
     if (document.body.classList.contains("site-redesign")) {
         return;
@@ -345,13 +403,13 @@ function setupDjMixerProjects() {
     const card = root.querySelector("[data-project-card]");
     const titleEl = root.querySelector("[data-project-title]");
     const metaEl = root.querySelector("[data-project-meta]");
-    const descEl = root.querySelector("[data-project-desc]");
+    const bodyEl = root.querySelector("[data-project-body]");
     const tagsEl = root.querySelector("[data-project-tags]");
     const actionsEl = root.querySelector("[data-project-actions]");
     const leftJog = root.querySelector('[data-jog="prev"]');
     const rightJog = root.querySelector('[data-jog="next"]');
 
-    if (!card || !titleEl || !metaEl || !descEl || !tagsEl || !actionsEl || !leftJog || !rightJog) {
+    if (!card || !titleEl || !metaEl || !bodyEl || !tagsEl || !actionsEl || !leftJog || !rightJog) {
         return;
     }
 
@@ -364,7 +422,17 @@ function setupDjMixerProjects() {
         }
         titleEl.textContent = p.title || "";
         metaEl.textContent = p.meta || "";
-        descEl.textContent = p.desc || "";
+        bodyEl.innerHTML = "";
+        const ul = document.createElement("ul");
+        ul.className = "project-spotlight-list";
+        (p.bullets || []).forEach((line) => {
+            const li = document.createElement("li");
+            appendRichBullet(li, line);
+            ul.appendChild(li);
+        });
+        if (ul.childNodes.length) {
+            bodyEl.appendChild(ul);
+        }
         tagsEl.innerHTML = "";
         (p.tags || []).forEach((tag) => {
             const span = document.createElement("span");
@@ -375,7 +443,7 @@ function setupDjMixerProjects() {
         actionsEl.innerHTML = "";
         (p.actions || []).forEach((action) => {
             const a = document.createElement("a");
-            a.className = "btn-neon";
+            a.className = "btn-deck";
             a.textContent = action.label;
             a.href = action.href || "#";
             if (action.href && /^https?:\/\//i.test(action.href)) {
@@ -430,11 +498,14 @@ function setupDjMixerProjects() {
             jogEl.setPointerCapture(event.pointerId);
         });
 
-        jogEl.addEventListener("pointermove", (event) => {
-            if (!active) {
-                return;
-            }
-            const a = angleFromEvent(event);
+        jogEl.addEventListener(
+            "pointermove",
+            (event) => {
+                if (!active) {
+                    return;
+                }
+                event.preventDefault();
+                const a = angleFromEvent(event);
             let d = a - startAngle;
             if (d > Math.PI) {
                 d -= Math.PI * 2;
@@ -455,7 +526,9 @@ function setupDjMixerProjects() {
                 accumulated = 0;
                 go(-deltaSign, jogEl);
             }
-        });
+            },
+            { passive: false }
+        );
 
         const end = () => {
             active = false;
@@ -481,9 +554,7 @@ function setupDjMixerProjects() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    if (!document.body.classList.contains("site-redesign")) {
-        applyTheme(getPreferredTheme());
-    }
+    applyTheme(getPreferredTheme());
 
     const nav = document.querySelector("nav");
     createNavSocialLinks(nav);
@@ -494,6 +565,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setupHeroParallaxLegacy();
     setupProjectCardStacks();
     setupDjMixerProjects();
+    setupHeroQuoteTypewriter();
     setupTypewriterHeadlines();
     setupInteractiveCursor();
 

@@ -3,9 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        (function () {
+            try {
+                const saved = localStorage.getItem("site-theme");
+                const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+                if (saved === "dark" || (!saved && prefersDark)) {
+                    document.documentElement.setAttribute("data-theme", "dark");
+                } else {
+                    document.documentElement.removeAttribute("data-theme");
+                }
+            } catch (_) {}
+        })();
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Monoton&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/Webpage_Home.css">
     <title>Daniel Jang</title>
 </head>
@@ -15,7 +28,7 @@
             <a class="nav-brand" href="#hero">DJ</a>
             <ul class="nav-links">
                 <li><a href="#hero">Home</a></li>
-                <li><a href="#about">About</a></li>
+                <li><a href="Webpage_About.html">About</a></li>
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="Webpage_Contact.html">Contact</a></li>
             </ul>
@@ -27,93 +40,32 @@
             <div class="hero-backdrop" data-hero-parallax>
                 <img class="hero-full-image photo-crisp" src="../images/hero-field.png" alt="" decoding="async" fetchpriority="high">
                 <div class="hero-purple-veil" aria-hidden="true"></div>
+                <div class="hero-film-grain" aria-hidden="true"></div>
             </div>
             <div class="hero-ui">
                 <div class="hero-content">
-                    <p class="hero-kicker">Computer Science @ Waterloo · Co-op</p>
+                    <p class="hero-typewriter" id="hero-typewriter" data-typewriter-text  ="&quot;What could possibly go wrong?&quot;" aria-live="polite"></p>
                     <div class="hero-nameplate" aria-label="Daniel Jang">
                         <span class="hero-line hero-daniel">DANIEL</span>
                         <span class="hero-line hero-jang">JANG</span>
                     </div>
-                    <p class="hero-quote-neon">WHAT COULD POSSIBLY GO WRONG</p>
+                    <p class="hero-kicker">Computer Science @ Waterloo</p>
+                    <p class="hero-kicker hero-kicker--coop">Seeking for Fall 2026 Co-op</p>
                     <div class="hero-cta">
-                        <a class="btn-neon" href="../docs/Daniel_Jang_Resume.pdf" target="_blank" rel="noopener">Résumé</a>
-                        <a class="btn-neon btn-neon--ghost" href="#about">Enter</a>
+                        <a class="btn-deck" href="../docs/Daniel_Jang_Resume.pdf" target="_blank" rel="noopener">RÉSUMÉ</a>
+                        <a class="btn-deck" href="Webpage_About.html">ABOUT</a>
                     </div>
                 </div>
-                <a class="hero-scroll-hint" href="#about">Scroll</a>
+                <a class="hero-scroll-hint" href="#projects">DECKS ↓</a>
             </div>
         </div>
     </section>
 
-    <section id="about" class="about-chat" aria-labelledby="about-heading">
-        <h2 id="about-heading" class="visually-hidden">About</h2>
-        <div class="about-chat-inner">
-            <div class="chat-bubble chat-bubble--left" data-chat-bubble>
-                <span class="chat-label">you</span>
-                <p>Who is Daniel Jang?</p>
-            </div>
-            <div class="chat-bubble chat-bubble--right" data-chat-bubble>
-                <span class="chat-label">daniel</span>
-                <p>I study Computer Science at Waterloo with a focus on cybersecurity — I care about building secure, thoughtful systems as tech spreads everywhere. I’m also into software dev and data science.</p>
-            </div>
-            <div class="chat-bubble chat-bubble--left" data-chat-bubble>
-                <span class="chat-label">you</span>
-                <p>What else should I know?</p>
-            </div>
-            <div class="chat-bubble chat-bubble--right" data-chat-bubble>
-                <span class="chat-label">daniel</span>
-                <p>I thrive on collaborative teams and problems that need both technical depth and creative thinking.</p>
-            </div>
-            <div class="chat-bubble chat-bubble--left" data-chat-bubble>
-                <span class="chat-label">you</span>
-                <p>Quick facts?</p>
-            </div>
-            <div class="chat-bubble chat-bubble--right" data-chat-bubble>
-                <span class="chat-label">daniel</span>
-                <ul class="chat-list">
-                    <li>CS @ Waterloo, Co-op program</li>
-                    <li>Python, Java, C, HTML/CSS, JavaScript</li>
-                    <li>English, Korean, French</li>
-                    <li>Say hi on the <a href="Webpage_Contact.html">Contact</a> page</li>
-                </ul>
-            </div>
-            <div class="about-gallery" data-chat-bubble>
-                <figure class="about-shot">
-                    <img class="photo-crisp" src="../images/LD_Perm.jpg" alt="Daniel at work as a Tech Specialist" loading="lazy">
-                    <figcaption>Tech Specialist shift (Feb 2025)</figcaption>
-                </figure>
-                <figure class="about-shot">
-                    <img class="photo-crisp" src="../images/Family_Canyon.jpg" alt="Family at Antelope Canyon" loading="lazy">
-                    <figcaption>Antelope Canyon with family (July 2023)</figcaption>
-                </figure>
-                <figure class="about-shot">
-                    <img class="photo-crisp" src="../images/Waterloo_Snow.jpg" alt="University of Waterloo in winter" loading="lazy">
-                    <figcaption>Waterloo winter (Dec 2025)</figcaption>
-                </figure>
-            </div>
-            <button type="button" id="toggle-facts" class="btn-neon btn-neon--small" aria-expanded="false" aria-controls="hidden-content">Fun facts thread ↓</button>
-            <div id="hidden-content" class="fact-thread" hidden>
-                <div class="chat-bubble chat-bubble--right" data-chat-bubble>
-                    <span class="chat-label">daniel</span>
-                    <ul class="chat-list">
-                        <li>Raised in Chilliwack, BC (~1h20 to Vancouver).</li>
-                        <li>Early childhood in Prince George, BC.</li>
-                        <li>First code: Java <code>System.out.println("Hello World!")</code>.</li>
-                        <li>Glasses were full-time; now more casual — photos make sense now.</li>
-                        <li>Trilingual: English, Korean, French.</li>
-                        <li>Blue Jays fan (2025 WS G7 still stings).</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="projects" class="projects-deck" aria-labelledby="projects-heading">
+    <section id="projects" class="projects-deck reveal-on-scroll" aria-labelledby="projects-heading">
         <div class="projects-banner" aria-hidden="true"></div>
         <div class="projects-body">
             <h2 id="projects-heading" class="projects-title">PROJECTS</h2>
-            <p class="projects-hint">Tap a platter or click — drag in a circle on <strong>‹</strong> for previous and <strong>›</strong> for next project.</p>
+            <p class="projects-hint">Tap a pad or platter — drag in a circle on <strong>‹</strong> for previous and <strong>›</strong> for next.</p>
             <div class="mixer-wrap" data-mixer>
                 <div class="dj-console" aria-label="Interactive decks — spin platters to change project">
                     <div class="dj-console__lights" aria-hidden="true">
@@ -164,9 +116,9 @@
                     </div>
                 </div>
                 <article class="project-spotlight" data-project-card aria-live="polite">
-                    <h3 class="project-spotlight-title" data-project-title>UCEY — Planner-facing Interface</h3>
-                    <p class="project-spotlight-meta" data-project-meta>Mar 2026</p>
-                    <p class="project-spotlight-desc" data-project-desc>Urban planning web app to locate and estimate costs for underutilized sites using TypeScript and React. I owned the front end and map-driven API integration.</p>
+                    <h3 class="project-spotlight-title" data-project-title>Project 1: UCEY — Planner-facing Interface (Mar 2026)</h3>
+                    <p class="project-spotlight-meta" data-project-meta></p>
+                    <div class="project-spotlight-body" data-project-body></div>
                     <div class="project-tags" data-project-tags></div>
                     <div class="project-spotlight-actions" data-project-actions></div>
                 </article>
@@ -174,7 +126,7 @@
         </div>
     </section>
 
-    <footer class="site-footer">
+    <footer class="site-footer reveal-on-scroll">
         <p>2 Corinthians 5:7 NIV — For we live by faith, not by sight.</p>
         <p>&copy; 2026 Daniel Jang. All rights reserved.</p>
     </footer>
@@ -182,52 +134,68 @@
     <script type="application/json" id="projects-data">
     [
         {
-            "title": "UCEY — Planner-facing Interface",
-            "meta": "Mar 2026",
-            "desc": "Urban planning web app that locates and estimates costs for underutilized sites (e.g. brownfields) in major cities using TypeScript and React. Owned the front end and interactive map experience.",
+            "title": "Project 1: UCEY — Planner-facing Interface (Mar 2026)",
+            "meta": "",
+            "bullets": [
+                "Designed and built an urban planning web app that locates and estimates costs for underutilized sites (e.g., brownfields) in major cities using TypeScript and React.",
+                "Owned the front-end, integrating APIs into an interactive map experience."
+            ],
             "tags": ["TypeScript", "React", "Maps", "APIs"],
             "actions": [
-                { "label": "Source", "href": "https://github.com/DJ-jang197/UCEY" },
-                { "label": "Demo", "href": "https://youtu.be/guHyDqEA1P4?si=cthgOiMxLEOcH3-i" }
+                { "label": "VIEW SOURCE CODE", "href": "https://github.com/DJ-jang197/UCEY" },
+                { "label": "VIEW DEMO", "href": "https://youtu.be/guHyDqEA1P4?si=cthgOiMxLEOcH3-i" }
             ]
         },
         {
-            "title": "YSafe — Navigation App",
-            "meta": "Feb 2026",
-            "desc": "Navigation web app and AI assistant in Dart with Google APIs for safer, time-efficient pedestrian routes. Pulled York Region open data (5 years) to improve routing accuracy.",
+            "title": "Project 2: YSafe — Navigation App (Feb 2026)",
+            "meta": "",
+            "bullets": [
+                "Developed a navigation web app and an AI assistant using Dart, integrating Google APIs to visualize safe and time-efficient pedestrian routes.",
+                "Optimized route generation by extracting large datasets from York Region Open Data (past 5 years) to improve accuracy for end users."
+            ],
             "tags": ["Dart", "Google APIs", "Open Data"],
             "actions": [
-                { "label": "Source", "href": "https://github.com/DJ-jang197/yorkuhacks" }
+                { "label": "VIEW SOURCE CODE", "href": "https://github.com/DJ-jang197/yorkuhacks" }
             ]
         },
         {
-            "title": "Personal Website",
-            "meta": "2025 — now",
-            "desc": "Portfolio for background, projects, and contact — this redesign is HTML, CSS, and vanilla JS with a graffiti / producer vibe.",
+            "title": "Project 3: Personal Website (Early 2025)",
+            "meta": "",
+            "bullets": [
+                "Description: This is my personal website where I showcase my background, projects, and contact information. You are currently viewing it!",
+                "It is built using HTML, CSS, and JavaScript."
+            ],
             "tags": ["HTML", "CSS", "JavaScript"],
             "actions": [
-                { "label": "Home", "href": "#hero" }
+                { "label": "VIEW WEBSITE", "href": "index.html" }
             ]
         },
         {
-            "title": "Calculator Web App",
-            "meta": "2024",
-            "desc": "Responsive calculator with arithmetic and BEDMAS, delete, and error handling for malformed expressions (e.g. 2 * / 3). Built in a day for practice.",
+            "title": "Project 4: Calculator Website (2024)",
+            "meta": "",
+            "bullets": [
+                "Developed a desktop and mobile friendly web-based calculator using HTML, CSS, and JavaScript with a personal goal of completion within 24 hours.",
+                "Features include basic arithmetic and **BEDMAS** operations, a delete function, and responsive design.",
+                "Able to detect malformed expressions and display an error message (Ex: 2 * / 3)."
+            ],
             "tags": ["HTML", "CSS", "JavaScript"],
             "actions": [
-                { "label": "Open", "href": "Calculator.html" }
+                { "label": "VIEW PROGRAM", "href": "Calculator.html" }
             ]
         },
         {
-            "title": "Next up",
-            "meta": "Roadmap",
-            "desc": "More hackathons and a growing set of mini-projects across Java, C, Python, JavaScript, HTML/CSS, and beyond.",
-            "tags": ["Learning", "Teamwork"],
+            "title": "Upcoming:",
+            "meta": "",
+            "bullets": [
+                "Planning to participate in hackathons and test my progamming capabilities. Through the hackathon experience, not only will I be able to refine my problem-solving skills, but also learn how to collaborate effectively in a competitive team environment.",
+                "Currently creating a portfolio of mini-projects that demonstrate my skills in various programming languages and technologies.",
+                "Languages include: Java, C, Python, JavaScript, HTML/CSS, and more."
+            ],
+            "tags": [],
             "actions": []
         }
     ]
     </script>
     <script src="../js/Webpage_Main.js"></script>
-    <script src="../js/Webpage_About.js"></script>
 </body>
 </html>

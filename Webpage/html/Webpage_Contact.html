@@ -10,19 +10,25 @@
                 const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
                 if (saved === "dark" || (!saved && prefersDark)) {
                     document.documentElement.setAttribute("data-theme", "dark");
+                } else {
+                    document.documentElement.removeAttribute("data-theme");
                 }
             } catch (_) {}
         })();
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Monoton&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/Webpage_Home.css">
     <title>Daniel Jang's WebPage: Contact</title>
 </head>
 
 <body class="contact-layout">
     <nav>
+        <div class="contact-nav-top">
+            <a class="contact-nav-dj" href="index.html#hero">DJ</a>
+            <div class="contact-nav-social-slot" data-contact-social-slot></div>
+        </div>
         <table>
             <tr>
                 <td><a href="index.html#hero"><b>Home</b></a></td>
@@ -39,46 +45,31 @@
         <div class="contact-shell__inner">
             <header class="contact-shell__header">
                 <h1 class="big-font contact-shell__title">Connect with Daniel Jang</h1>
+                <p class="contact-shell__lede">Reach out through any of the channels below.</p>
             </header>
 
-            <div class="contact-chat" aria-label="Contact methods">
-                <div class="chat-bubble chat-bubble--left" data-chat-bubble>
-                    <span class="chat-label">you</span>
-                    <p>How can I reach you?</p>
-                </div>
-                <div class="chat-bubble chat-bubble--right" data-chat-bubble>
-                    <span class="chat-label">daniel</span>
-                    <p>Email works best for introductions and opportunities.</p>
-                </div>
-                <div class="chat-bubble chat-bubble--left" data-chat-bubble>
-                    <span class="chat-label">you</span>
-                    <p>What’s your email?</p>
-                </div>
-                <div class="chat-bubble chat-bubble--right" data-chat-bubble>
-                    <span class="chat-label">daniel</span>
-                    <p><a href="mailto:d2jang@uwaterloo.ca">d2jang@uwaterloo.ca</a></p>
-                </div>
-                <div class="chat-bubble chat-bubble--left" data-chat-bubble>
-                    <span class="chat-label">you</span>
-                    <p>Socials?</p>
-                </div>
-                <div class="chat-bubble chat-bubble--right" data-chat-bubble>
-                    <span class="chat-label">daniel</span>
-                    <ul class="chat-list chat-list--plain">
-                        <li><a href="https://www.linkedin.com/in/daniel-jang197" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
-                        <li><a href="https://www.instagram.com/dj_jang197/" target="_blank" rel="noopener noreferrer">Instagram</a> (private)</li>
-                        <li><a href="https://github.com/DJ-jang197" target="_blank" rel="noopener noreferrer">GitHub</a></li>
-                    </ul>
-                </div>
-                <div class="chat-bubble chat-bubble--left" data-chat-bubble>
-                    <span class="chat-label">you</span>
-                    <p>Anything else?</p>
-                </div>
-                <div class="chat-bubble chat-bubble--right" data-chat-bubble>
-                    <span class="chat-label">daniel</span>
-                    <p>Other contact methods on request.</p>
-                </div>
-            </div>
+            <section class="contact-panel" data-reveal aria-label="Contact methods">
+                <ul class="contact-panel__list">
+                    <li class="contact-panel__item">
+                        <span class="contact-panel__label">Email (preferred)</span>
+                        <a class="contact-panel__value" href="mailto:d2jang@uwaterloo.ca">d2jang@uwaterloo.ca</a>
+                    </li>
+                    <li class="contact-panel__item">
+                        <span class="contact-panel__label">LinkedIn</span>
+                        <a class="contact-panel__value" href="https://www.linkedin.com/in/daniel-jang197" target="_blank" rel="noopener noreferrer">Daniel Jang</a>
+                    </li>
+                    <li class="contact-panel__item">
+                        <span class="contact-panel__label">Instagram</span>
+                        <a class="contact-panel__value" href="https://www.instagram.com/dj_jang197/" target="_blank" rel="noopener noreferrer">@dj_jang197</a>
+                        <span class="contact-panel__note">Private account</span>
+                    </li>
+                    <li class="contact-panel__item">
+                        <span class="contact-panel__label">GitHub</span>
+                        <a class="contact-panel__value" href="https://github.com/DJ-jang197" target="_blank" rel="noopener noreferrer">DJ-jang197</a>
+                    </li>
+                </ul>
+                <p class="contact-panel__footer">Other contact methods available on request.</p>
+            </section>
         </div>
     </main>
 
