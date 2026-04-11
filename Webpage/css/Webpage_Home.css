@@ -1,0 +1,1088 @@
+/* Theme tokens shared by all pages. */
+:root {
+    /* Two fonts only: hero titles vs. everything else (matches body / list copy). */
+    --font-body: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+    --font-hero: Garamond, serif;
+    --bg: #f7f9ff;
+    --bg-alt: #ffffff;
+    --surface: #ffffff;
+    --surface-solid: #ffffff;
+    --text: #111111;
+    --text-muted: #2f56cc;
+    --primary: #4272ff;
+    --primary-strong: #4272ff;
+    --accent: #ffb343;
+    --accent-soft: #42eaff;
+    --line: #42eaff;
+    --warm-detail: #ff7e42;
+    --border: #4272ff;
+    --cursor: #4272ff;
+    --shadow-soft: 0 10px 24px rgba(66, 114, 255, 0.2);
+    --shadow-hover: 0 16px 28px rgba(66, 114, 255, 0.3);
+    --radius-md: 0.85rem;
+    --radius-lg: 1.15rem;
+    --transition-fast: 200ms ease;
+    --transition-base: 320ms ease;
+    --nav-link-color: #1a1f2e;
+    --button-text-color: #1a1a1a;
+    /* Hero/page headers: tinted card vs. main content boxes (--surface). */
+    --header-surface: color-mix(in srgb, var(--surface) 84%, var(--primary) 16%);
+}
+
+/* Dark mode token overrides (toggled from JS). */
+html[data-theme="dark"] {
+    --bg: #0f1118;
+    --bg-alt: #121622;
+    --surface: #121a2b;
+    --surface-solid: #121a2b;
+    --text: #ffffff;
+    --text-muted: #a9c0ff;
+    --primary: #4272ff;
+    --primary-strong: #6f92ff;
+    --accent: #ffb343;
+    --accent-soft: #42eaff;
+    --line: #42eaff;
+    --warm-detail: #ff7e42;
+    --border: #4272ff;
+    --cursor: #ffffff;
+    --shadow-soft: 0 12px 28px rgba(0, 0, 0, 0.55);
+    --shadow-hover: 0 18px 34px rgba(0, 0, 0, 0.72);
+    --nav-link-color: #f2f6ff;
+    --button-text-color: #1a1a1a;
+    --header-surface: color-mix(in srgb, var(--surface) 72%, var(--primary) 28%);
+}
+
+/* Global reset. */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Smooth in-page movement unless reduced motion is requested. */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Base page layout and typography. */
+body {
+    padding-top: 6rem;
+    padding-bottom: 0;
+    font-family: var(--font-body);
+    line-height: 1.45;
+    color: var(--text);
+    background-color: var(--bg);
+    transition: background-color 0.4s ease, color 0.4s ease;
+    cursor: crosshair;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Subtle backdrop depth (pattern + vignette) using existing palette tokens. */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 36 36'%3E%3Cpath d='M36 0H0V36' fill='none' stroke='%234272ff' stroke-opacity='0.16' stroke-width='1'/%3E%3Ccircle cx='0.5' cy='0.5' r='0.5' fill='%234272ff' fill-opacity='0.22'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 36px 36px;
+    opacity: 0.75;
+    mix-blend-mode: normal;
+}
+
+html[data-theme="dark"] body::before {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 36 36'%3E%3Cpath d='M36 0H0V36' fill='none' stroke='%2342eaff' stroke-opacity='0.14' stroke-width='1'/%3E%3Ccircle cx='0.5' cy='0.5' r='0.5' fill='%2342eaff' fill-opacity='0.2'/%3E%3C/svg%3E");
+    opacity: 0.68;
+}
+
+/* Ensure content layers above the backdrop. */
+body > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* Headings and controls use the same family as body unless a hero class overrides. */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: inherit;
+}
+
+button,
+input,
+textarea,
+select {
+    font-family: inherit;
+}
+
+/* Desktop custom cursor state (enabled by JS). */
+body.cursor-enhanced {
+    cursor: none;
+}
+
+body.cursor-enhanced a,
+body.cursor-enhanced button,
+body.cursor-enhanced input,
+body.cursor-enhanced textarea,
+body.cursor-enhanced select,
+body.cursor-enhanced .nav-social-link {
+    cursor: none;
+}
+
+/* Navigation container and progress line. */
+table {
+    text-align: center;
+    margin: auto;
+}
+
+td {
+    padding: 0.55rem 0.9rem;
+    font-size: 1.08rem;
+}
+
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1200;
+    backdrop-filter: blur(8px);
+    background: var(--surface-solid);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem clamp(3.25rem, 9vw, 5.25rem) 1.2rem;
+    box-shadow: var(--shadow-soft);
+    transition: background-color 0.4s ease, border-color 0.4s ease;
+}
+
+nav::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 3px;
+    width: var(--scroll-progress, 0%);
+    background: var(--primary);
+    transition: width 120ms linear;
+    z-index: 1;
+}
+
+/* Navigation links and active tab treatment. */
+nav a {
+    color: var(--nav-link-color);
+    text-decoration: none;
+    letter-spacing: 0.03em;
+    display: inline-block;
+    padding: 0.22rem 0.5rem;
+    border-radius: 0.5rem;
+    transition: color var(--transition-fast), text-shadow var(--transition-fast), transform var(--transition-fast), background-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+nav a:hover,
+nav a:focus-visible {
+    color: var(--nav-link-color);
+    text-shadow:
+        0 0 10px color-mix(in srgb, var(--warm-detail) 32%, transparent),
+        0 0 14px color-mix(in srgb, var(--accent) 40%, transparent);
+    transform: translateY(-2px) scale(1.03);
+    background-color: color-mix(in srgb, var(--line) 24%, color-mix(in srgb, var(--warm-detail) 12%, transparent));
+    box-shadow: 0 5px 12px rgba(66, 114, 255, 0.22);
+}
+
+.tab-nav {
+    border: 2px solid var(--primary);
+    border-radius: 999px;
+    background: var(--primary);
+    box-shadow: none;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.tab-nav:hover {
+    transform: translateY(-1px) scale(1.02);
+    box-shadow: 0 5px 12px rgba(66, 114, 255, 0.28);
+}
+
+/* Social profile shortcuts (injected by Webpage_Main.js). */
+.nav-social {
+    position: absolute;
+    left: clamp(0.35rem, 2vw, 0.85rem);
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    gap: 0.28rem;
+    z-index: 2;
+}
+
+.nav-social-link {
+    display: grid;
+    place-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 999px;
+    border: 1px solid var(--warm-detail);
+    background: color-mix(in srgb, var(--warm-detail) 14%, var(--surface-solid));
+    color: var(--warm-detail);
+    text-decoration: none;
+    transition: transform var(--transition-fast), border-color var(--transition-fast), background-color var(--transition-fast), box-shadow var(--transition-fast), color var(--transition-fast);
+}
+
+.nav-social-link svg {
+    width: 1.05rem;
+    height: 1.05rem;
+}
+
+.nav-social-link:hover,
+.nav-social-link:focus-visible {
+    transform: translateY(-2px) scale(1.05);
+    border-color: var(--warm-detail);
+    background-color: color-mix(in srgb, var(--warm-detail) 22%, var(--surface-solid));
+    box-shadow: 0 5px 12px rgba(66, 114, 255, 0.22);
+    color: var(--warm-detail);
+    outline: none;
+}
+
+/* Light/Dark toggle button and icon transitions. */
+.theme-toggle {
+    position: absolute;
+    right: clamp(0.35rem, 2vw, 1rem);
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 999px;
+    border: 1px solid var(--warm-detail);
+    background: color-mix(in srgb, var(--warm-detail) 14%, var(--surface-solid));
+    color: var(--warm-detail);
+    display: grid;
+    place-items: center;
+    transition: transform var(--transition-fast), border-color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.theme-toggle:hover,
+.theme-toggle:focus-visible {
+    transform: translateY(-50%) scale(1.06);
+    border-color: var(--warm-detail);
+    background-color: color-mix(in srgb, var(--warm-detail) 22%, var(--surface-solid));
+}
+
+.theme-toggle svg {
+    width: 1.4rem;
+    height: 1.4rem;
+}
+
+.icon-sun-core,
+.icon-ray {
+    transform-origin: 12px 12px;
+    transition: transform 240ms ease, opacity 220ms ease, fill 220ms ease;
+}
+
+.icon-moon {
+    transition: transform 240ms ease, opacity 220ms ease, fill 220ms ease;
+    transform-origin: 12px 12px;
+}
+
+html[data-theme="dark"] .icon-sun-core,
+html[data-theme="dark"] .icon-ray {
+    opacity: 0;
+    transform: scale(0.45);
+}
+
+html:not([data-theme="dark"]) .icon-moon {
+    opacity: 0;
+    transform: scale(0.45);
+}
+
+/* Hero/header styling, including subtle parallax overlay. */
+header {
+    position: relative;
+    width: min(1180px, 95%);
+    margin: 0.9rem auto 1rem;
+    padding: 3rem 1.5rem 2.6rem;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    background: var(--header-surface);
+    text-align: center;
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+    transition: background-color 0.4s ease, border-color 0.4s ease;
+}
+
+header,
+section,
+.project-list,
+.fact-content.open,
+.project-card {
+    background-image: none;
+}
+
+html[data-theme="dark"] header,
+html[data-theme="dark"] section,
+html[data-theme="dark"] .project-list,
+html[data-theme="dark"] .fact-content.open,
+html[data-theme="dark"] .project-card {
+    background-image: none;
+}
+
+/* Large-title heroes (e.g. home quote, About/Projects/Contact headings): same solid look as home — no cyan wash, text can wrap. */
+header:has(.big-font) {
+    overflow: visible;
+}
+
+header:has(.big-font)::before {
+    display: none;
+}
+
+/* Home quote: single line; font scales down with hero width so it still fits. */
+header:has(.home-hero-quote) {
+    container-type: inline-size;
+    container-name: home-hero;
+}
+
+header::before {
+    content: "";
+    position: absolute;
+    inset: -8% -10%;
+    background: var(--line);
+    opacity: 0.2;
+    transform: translateY(var(--parallax-offset, 0px));
+}
+
+header > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* Shared card container styling. */
+section,
+.project-list,
+.fact-content.open {
+    width: min(1180px, 95%);
+    margin: 1.3rem auto;
+    padding: 2rem;
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+    border: 2px solid var(--border);
+    box-shadow: var(--shadow-soft);
+    transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease;
+}
+
+/* Image sections and hover behavior. */
+.home-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+/* Shared layout for image groups across pages. */
+.home-img-container,
+.about-img-container {
+    width: min(1180px, 95%);
+    margin: 1rem auto 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+}
+
+/* Images use simple hover emphasis and can host hover captions via wrapper. */
+.home-images,
+.about-images {
+    height: auto;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-soft);
+    transition: transform var(--transition-base), box-shadow var(--transition-base), filter var(--transition-base), border-color var(--transition-base);
+    will-change: transform;
+}
+
+.home-images {
+    width: 100%;
+}
+
+.about-images {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+    aspect-ratio: 4 / 5;
+}
+
+/* Wrapper controls size and caption reveal animation area. */
+.hover-caption-wrap {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-md);
+}
+
+.home-image-wrap {
+    width: min(32%, 420px);
+}
+
+.about-image-wrap {
+    width: min(30%, 320px);
+}
+
+.about-img-container .about-images {
+    max-width: 100%;
+}
+
+.contact-wrapper > .hover-caption-wrap {
+    width: clamp(260px, 34vw, 420px);
+    max-width: 100%;
+    flex-shrink: 0;
+}
+
+.home-images:hover,
+.about-images:hover,
+.home-images:focus-visible,
+.about-images:focus-visible {
+    transform: none;
+    box-shadow: var(--shadow-hover);
+    filter: none;
+}
+
+/* Caption panel rises into view for easy per-image descriptions. */
+.image-caption {
+    position: absolute;
+    left: 0.6rem;
+    right: 0.6rem;
+    bottom: 0.6rem;
+    background: rgba(17, 17, 17, 0.82);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 0.5rem;
+    padding: 0.45rem 0.65rem;
+    font-size: 0.86rem;
+    transform: translateY(120%);
+    opacity: 0;
+    transition: transform 220ms ease, opacity 220ms ease;
+}
+
+.hover-caption-wrap:hover .image-caption,
+.hover-caption-wrap:focus-within .image-caption {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* Text hierarchy and link colors. */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: var(--primary);
+    margin-bottom: 0.9rem;
+}
+
+p {
+    color: var(--text);
+    margin-bottom: 1rem;
+    font-size: 1.14rem;
+}
+
+a {
+    color: var(--primary-strong);
+    text-underline-offset: 0.18em;
+}
+
+a:hover,
+a:focus-visible {
+    color: var(--accent-soft);
+}
+
+html[data-theme="dark"] a {
+    color: #42eaff;
+}
+
+html[data-theme="dark"] a:hover,
+html[data-theme="dark"] a:focus-visible {
+    color: #ffb343;
+}
+
+html[data-theme="dark"] nav a,
+html[data-theme="dark"] nav a:hover,
+html[data-theme="dark"] nav a:focus-visible {
+    color: var(--nav-link-color);
+}
+
+.big-font {
+    font-size: clamp(2.1rem, 7vw, 4.6rem);
+    font-family: var(--font-hero);
+    color: #ff7e42;
+}
+
+.home-hero-quote {
+    white-space: nowrap;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.2;
+    /* Fallback: scale with viewport (hero ~ full width). */
+    font-size: clamp(0.58rem, 3.65vw + 0.42rem, 4.6rem);
+    overflow-wrap: normal;
+    hyphens: manual;
+}
+
+@supports (font-size: 1cqw) {
+    .home-hero-quote {
+        /* Prefer header width so one line fits inside the hero card. */
+        font-size: clamp(0.58rem, 6.2cqw, 4.6rem);
+    }
+}
+
+.hero-tagline {
+    margin: 0.4rem 0 0;
+    font-size: clamp(0.92rem, 2vw, 1.12rem);
+    color: var(--text-muted);
+    letter-spacing: 0.02em;
+}
+
+.big-font-at-home {
+    font-family: var(--font-hero);
+    font-size: clamp(1.3rem, 3vw, 1.75rem);
+    color: var(--warm-detail);
+}
+
+.About-Content {
+    line-height: 1.72;
+}
+
+.about-aspirations {
+    max-width: 52rem;
+    margin: 0 auto 1.1rem;
+}
+
+.about-aspirations p {
+    margin: 0;
+    font-size: 1.05rem;
+}
+
+.about-bullets {
+    max-width: 52rem;
+    margin: 0 auto;
+    padding-left: 1.35rem;
+    list-style-type: disc;
+}
+
+.about-bullets li {
+    margin-bottom: 0.55rem;
+}
+
+.about-bullets li:last-child {
+    margin-bottom: 0;
+}
+
+/* Collapsible "learn more" panel on About page. */
+.fact-content {
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    width: min(1180px, 95%);
+    margin: 0 auto 1.5rem;
+    padding: 0 1rem;
+    border-radius: var(--radius-lg);
+    transition: max-height 0.5s ease, opacity 0.35s ease, padding 0.35s ease;
+}
+
+.fact-content.open {
+    max-height: 430px;
+    opacity: 1;
+    padding: 1rem 1.25rem;
+}
+
+ul {
+    list-style-type: disc;
+    margin-left: 2rem;
+    margin-bottom: 1.4rem;
+    color: var(--text-muted);
+    font-size: 1.1rem;
+}
+
+ul li {
+    margin-bottom: 0.95rem;
+}
+
+.subpoint {
+    list-style-type: circle;
+    margin-left: 2rem;
+}
+
+/* Project stack container and cards. */
+.project-list {
+    /* Larger card board so fan-out has room inside the white box. */
+    width: min(1400px, 98%);
+    text-align: left;
+    overflow: visible;
+    padding: 2.9rem 6.2rem;
+    min-height: 46rem;
+}
+
+.project-stacks {
+    display: grid;
+    gap: 2rem;
+}
+
+.card-stack {
+    position: relative;
+    min-height: 34rem;
+    perspective: 1200px;
+    overflow: visible;
+    /* Reserve horizontal space so the left stack arrow does not sit under the cards. */
+    padding-left: 1.75rem;
+}
+
+.project-card {
+    --card-index: 0;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: min(680px, 76%);
+    padding: 1.4rem;
+    border-radius: var(--radius-md);
+    border: 2px solid var(--border);
+    background: var(--surface-solid);
+    box-shadow: var(--shadow-soft);
+    transform: translateX(calc(60px + (var(--card-index) * 28px))) translateY(calc(-50% + (var(--card-index) * 14px))) rotate(calc(var(--card-index) * -3deg));
+    transition: transform 320ms ease, box-shadow 320ms ease;
+    transition-delay: calc(var(--card-index) * 60ms);
+    z-index: calc(10 - var(--card-index));
+    opacity: 0.98;
+}
+
+.project-card h2 {
+    margin-top: 0.2rem;
+}
+
+.project-card hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 0.8rem 0;
+}
+
+.card-stack:hover .project-card,
+.card-stack:focus-within .project-card {
+    transform: translateX(calc(60px + (var(--card-index) * 112px))) translateY(calc(-50% + (var(--card-index) * 10px))) rotate(calc((var(--card-index) - 1) * 6deg));
+    box-shadow: var(--shadow-hover);
+}
+
+.stack-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 2px solid var(--primary);
+    border-radius: 999px;
+    background: var(--surface-solid);
+    color: var(--primary-strong);
+    font-size: 1.5rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 30;
+}
+
+.stack-arrow-left {
+    left: 0.35rem;
+}
+
+.stack-arrow-right {
+    right: 0.35rem;
+}
+
+.contact-section {
+    padding: 2rem;
+}
+
+.contact-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 2.2rem;
+}
+
+.contact-method {
+    font-size: 1.2rem;
+}
+
+/* Buttons used across pages. */
+.view-website-button,
+.general-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    padding: 0.95rem 2.7rem;
+    border-radius: 999px;
+    border: 2px solid var(--primary);
+    background: var(--accent);
+    color: var(--button-text-color);
+    font-size: 1.08rem;
+    box-shadow: 0 8px 20px rgba(14, 14, 18, 0.2);
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast), color var(--transition-fast);
+}
+
+.availability-note {
+    text-align: center;
+    font-size: 1.08rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 0.85rem;
+}
+
+.general-button {
+    font-size: 1.2rem;
+    padding: 1rem 3.2rem;
+}
+
+.view-website-button {
+    margin-left: 3rem;
+}
+
+.project-card-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.7rem;
+    flex-wrap: wrap;
+}
+
+.project-card-buttons .view-website-button {
+    margin-left: 0;
+}
+
+button:hover,
+button:focus-visible {
+    transform: translateY(-4px);
+    border-color: var(--warm-detail);
+    background: var(--primary);
+    color: #ffffff;
+    box-shadow: 0 12px 24px rgba(14, 14, 18, 0.28);
+}
+
+/* Keep stack arrows fixed in place while still highlighting them. */
+.stack-arrow:hover,
+.stack-arrow:focus-visible {
+    transform: translateY(-50%);
+    border-color: var(--warm-detail);
+    background: var(--accent);
+    color: #111111;
+    box-shadow: 0 8px 20px rgba(14, 14, 18, 0.2);
+}
+
+html[data-theme="dark"] .stack-arrow:hover,
+html[data-theme="dark"] .stack-arrow:focus-visible {
+    background: var(--accent);
+    color: #111111;
+    border-color: #ffffff;
+}
+
+/* Footer in normal flow: appears at end of page content. */
+footer {
+    position: static;
+    margin-top: auto;
+    width: 100%;
+    padding: 1.1rem 1rem;
+    border-top: 1px solid var(--border);
+    background: var(--surface-solid);
+    color: var(--text);
+    text-align: center;
+    transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+footer[data-reveal] {
+    opacity: 1;
+    transform: none;
+}
+
+footer p {
+    font-size: 0.95rem;
+    margin-bottom: 0.45rem;
+}
+
+footer p:last-child {
+    margin-bottom: 0;
+}
+
+/* Extra breathing room above footer on Home and About pages. */
+.home-img-container + footer {
+    margin-top: 4.2rem;
+}
+
+#hidden-content + footer {
+    margin-top: 3.6rem;
+}
+
+/* Scroll-triggered reveal animation states. */
+[data-reveal] {
+    opacity: 0;
+    transform: translateY(24px) scale(0.99);
+    transition: opacity 560ms ease, transform 560ms ease;
+}
+
+[data-reveal].in-view {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+/* Typewriter helper class for large headlines. */
+.typewriter-line {
+    white-space: nowrap;
+}
+
+/* Custom crosshair cursor and confetti burst for button hover. */
+#interactive-cursor {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 30px;
+    height: 30px;
+    border: 0;
+    border-radius: 0;
+    pointer-events: none;
+    z-index: 4000;
+    transform: translate(-50%, -50%);
+}
+
+#interactive-cursor .cursor-v,
+#interactive-cursor .cursor-h {
+    position: absolute;
+    background: var(--cursor);
+}
+
+#interactive-cursor .cursor-v {
+    width: 4px;
+    top: 1px;
+    bottom: 1px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#interactive-cursor .cursor-h {
+    height: 4px;
+    left: 1px;
+    right: 1px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#interactive-cursor.cursor-button {
+    transform: translate(-50%, -50%) scale(1.08);
+}
+
+#interactive-cursor .confetti {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    opacity: 0;
+}
+
+#interactive-cursor.cursor-button .confetti {
+    animation: confetti-burst 650ms ease-out;
+}
+
+#interactive-cursor .confetti:nth-child(3) { top: -8px; left: 50%; }
+#interactive-cursor .confetti:nth-child(4) { top: 8%; right: -8px; background: var(--line); }
+#interactive-cursor .confetti:nth-child(5) { bottom: -8px; left: 56%; background: var(--primary); }
+#interactive-cursor .confetti:nth-child(6) { bottom: 8%; left: -8px; background: var(--accent-soft); }
+
+@keyframes confetti-burst {
+    0% { opacity: 0; transform: scale(0.5) translate(0, 0); }
+    25% { opacity: 1; }
+    100% { opacity: 0; transform: scale(1.35) translate(16px, -16px); }
+}
+
+/* Responsive adjustments for tablets/phones. */
+@media (max-width: 900px) {
+    body {
+        padding-top: 6.6rem;
+    }
+
+    td {
+        padding: 0.35rem 0.42rem;
+        font-size: 0.95rem;
+    }
+
+    nav a {
+        margin: 0 0.3rem;
+    }
+
+    .theme-toggle {
+        width: 2.45rem;
+        height: 2.45rem;
+        right: 0.5rem;
+    }
+
+    .nav-social {
+        gap: 0.12rem;
+        left: 0.25rem;
+    }
+
+    .nav-social-link {
+        width: 2.2rem;
+        height: 2.2rem;
+    }
+
+    .nav-social-link svg {
+        width: 0.92rem;
+        height: 0.92rem;
+    }
+
+    .contact-wrapper {
+        flex-direction: column;
+        align-items: center;
+        gap: 1.2rem;
+    }
+
+    .home-images,
+    .about-images {
+        width: 100%;
+    }
+
+    .home-image-wrap,
+    .about-image-wrap {
+        width: min(94%, 430px);
+    }
+
+    .view-website-button {
+        margin-left: 0;
+    }
+
+    .card-stack {
+        min-height: 36rem;
+        overflow: hidden;
+    }
+
+    .project-card {
+        width: min(640px, 92%);
+        transform: translateX(calc(46px + (var(--card-index) * 18px))) translateY(calc(-50% + (var(--card-index) * 12px))) rotate(calc(var(--card-index) * -2deg));
+    }
+
+    .card-stack:hover .project-card,
+    .card-stack:focus-within .project-card {
+        /* On tall/narrow screens, keep the stack contained (minimal fan-out). */
+        transform: translateX(calc(46px + (var(--card-index) * 18px))) translateY(calc(-50% + (var(--card-index) * 8px))) rotate(calc(var(--card-index) * -1deg));
+    }
+
+    .stack-arrow-left {
+        left: 0.15rem;
+    }
+
+    .stack-arrow-right {
+        right: 0.15rem;
+    }
+
+    .project-list {
+        width: min(1180px, 96%);
+        padding: 1.8rem 1.8rem;
+        overflow: hidden;
+    }
+
+    .home-img-container + footer {
+        margin-top: 3rem;
+    }
+
+    #hidden-content + footer {
+        margin-top: 2.6rem;
+    }
+}
+
+/* Medium/narrow layouts: keep the stack contained (no side “leak”). */
+@media (max-width: 1200px) {
+    .project-list {
+        overflow: hidden;
+        padding-left: 2.2rem;
+        padding-right: 2.2rem;
+    }
+
+    .card-stack {
+        overflow: hidden;
+    }
+
+    .project-card {
+        width: min(660px, 86%);
+        transform: translateX(calc(52px + (var(--card-index) * 22px))) translateY(calc(-50% + (var(--card-index) * 12px))) rotate(calc(var(--card-index) * -2deg));
+    }
+
+    .card-stack:hover .project-card,
+    .card-stack:focus-within .project-card {
+        transform: translateX(calc(52px + (var(--card-index) * 72px))) translateY(calc(-50% + (var(--card-index) * 8px))) rotate(calc((var(--card-index) - 1) * 3deg));
+    }
+}
+
+@media (hover: none), (pointer: coarse) {
+    #interactive-cursor {
+        display: none;
+    }
+
+    body.cursor-enhanced,
+    body.cursor-enhanced * {
+        cursor: auto;
+    }
+}
+
+/* Accessibility: motion reduction for users who request it. */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    [data-reveal] {
+        opacity: 1;
+        transform: none;
+    }
+
+    header::before {
+        transform: none;
+    }
+
+    #interactive-cursor .confetti {
+        animation: none !important;
+    }
+
+    .image-caption {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Ensure button text remains readable in dark mode. */
+html[data-theme="dark"] .view-website-button,
+html[data-theme="dark"] .general-button {
+    color: #111111;
+}
+
+html[data-theme="dark"] .theme-toggle {
+    color: var(--warm-detail);
+}
+
+html[data-theme="dark"] .stack-arrow {
+    color: #ffffff;
+    border-color: #42eaff;
+    background: #111111;
+}
