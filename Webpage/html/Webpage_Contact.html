@@ -23,28 +23,26 @@
     <title>Daniel Jang's WebPage: Contact</title>
 </head>
 
-<body class="contact-layout">
-    <nav>
-        <div class="contact-nav-top">
-            <a class="contact-nav-dj" href="index.html#hero">DJ</a>
-            <div class="contact-nav-social-slot" data-contact-social-slot></div>
+<body class="site-redesign contact-layout">
+    <nav class="site-nav" aria-label="Primary">
+        <div class="nav-inner">
+            <div class="nav-start">
+                <a class="nav-brand" href="index.html#hero">DJ</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html#hero">Home</a></li>
+                <li><a href="Webpage_About.html">About</a></li>
+                <li><a href="Webpage_Projects.html">Projects</a></li>
+                <li><a href="Webpage_Contact.html" aria-current="page">Contact</a></li>
+            </ul>
+            <div class="nav-end"></div>
         </div>
-        <table>
-            <tr>
-                <td><a href="index.html#hero"><b>Home</b></a></td>
-                <td><a href="Webpage_About.html"><b>About</b></a></td>
-                <td><a href="index.html#projects"><b>Projects</b></a></td>
-                <td class="tab-nav"><a href="Webpage_Contact.html"><b>Contact</b></a></td>
-            </tr>
-        </table>
     </nav>
 
     <main class="contact-shell">
-        <div class="contact-shell__bg" role="img" aria-label="Antelope Canyon landscape"></div>
-        <div class="contact-shell__scrim" aria-hidden="true"></div>
         <div class="contact-shell__inner">
             <header class="contact-shell__header">
-                <h1 class="big-font contact-shell__title">Connect with Daniel Jang</h1>
+                <h1 class="contact-shell__title" data-typewriter-text="Connect with Daniel Jang"></h1>
                 <p class="contact-shell__lede">Reach out through any of the channels below.</p>
             </header>
 
@@ -73,8 +71,8 @@
         </div>
     </main>
 
-    <footer>
-        <p>2 Corinthians 5:7 NIV - For we live by faith, not by sight.</p>
+    <footer class="site-footer">
+        <p>2 Corinthians 5:7 NIV — For we live by faith, not by sight.</p>
         <p>&copy; 2026 Daniel Jang. All rights reserved.</p>
     </footer>
     <script src="../js/Webpage_Main.js"></script>

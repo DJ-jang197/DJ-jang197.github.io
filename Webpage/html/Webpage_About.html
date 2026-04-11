@@ -25,18 +25,21 @@
 <body class="site-redesign about-page">
     <nav class="site-nav" aria-label="Primary">
         <div class="nav-inner">
-            <a class="nav-brand" href="index.html#hero">DJ</a>
+            <div class="nav-start">
+                <a class="nav-brand" href="index.html#hero">DJ</a>
+            </div>
             <ul class="nav-links">
                 <li><a href="index.html#hero">Home</a></li>
                 <li><a href="Webpage_About.html" aria-current="page">About</a></li>
-                <li><a href="index.html#projects">Projects</a></li>
+                <li><a href="Webpage_Projects.html">Projects</a></li>
                 <li><a href="Webpage_Contact.html">Contact</a></li>
             </ul>
+            <div class="nav-end"></div>
         </div>
     </nav>
 
     <main class="about-main">
-        <h1 class="about-page-title reveal-on-scroll">Who is Daniel Jang?</h1>
+        <h1 class="about-page-title reveal-on-scroll" data-typewriter-text="Who is Daniel Jang?"></h1>
 
         <section class="about-chat" aria-label="About">
             <div class="chat-bubble chat-bubble--right reveal-on-scroll">
@@ -51,40 +54,24 @@
                 </ul>
             </div>
 
-            <div class="about-gallery reveal-on-scroll">
-                <figure class="about-shot">
-                    <img src="../images/tech_specialist.jpg" alt="Daniel working as a Tech Specialist" class="photo-crisp">
-                    <figcaption>At work as a part-time Tech Specialist (Feb 2025)</figcaption>
-                </figure>
-                <figure class="about-shot">
-                    <img src="../images/antelope_canyon.jpg" alt="Daniel's family at Antelope Canyon" class="photo-crisp">
-                    <figcaption>My family at the Anteloupe Canyon (July 2023)</figcaption>
-                </figure>
-                <figure class="about-shot">
-                    <img src="../images/uw_winter.jpg" alt="University of Waterloo in winter" class="photo-crisp">
-                    <figcaption>University of Waterloo in the winter (Dec 2025)</figcaption>
-                </figure>
-            </div>
-
             <aside class="fun-facts-aside reveal-on-scroll" id="fun-facts-sidebar" aria-labelledby="toggle-facts">
                 <button type="button" class="btn-deck" id="toggle-facts">FUN FACTS</button>
                 <div class="fact-thread" id="fun-fact-content" hidden>
-                    <div class="chat-bubble chat-bubble--right">
-                        <h2 class="fun-facts-heading">Here are some fun facts about me!</h2>
-                        <ul class="chat-list">
-                            <li>I have a twin brother who is also studying at the University of Waterloo.</li>
-                            <li>I enjoy playing the piano and have been playing for over 10 years.</li>
-                            <li>My favorite programming language is Python because of its simplicity and versatility.</li>
-                            <li>I love hiking and have visited several national parks across Canada.</li>
-                            <li>I am fluent in both English and Korean.</li>
-                        </ul>
-                    </div>
+                    <h2 class="fun-facts-heading">Here are some fun facts about me!</h2>
+                    <ul class="about-fun-bullets">
+                        <li>I was born and predominantly raised in Chilliwack, British Columbia. For reference, it is a 1h 22min drive to Vancouver.</li>
+                        <li>That being said, my early childhood was in Prince George, British Columbia. For reference, it is a 8h 41min drive to Vancouver.</li>
+                        <li>The first programming language I learned was Java <code>System.out.println("Hello World!")</code>.</li>
+                        <li>I used to wear glasses, but now it is worn casually. Hopefully that clarifies who I am in photos!</li>
+                        <li>I am trilingual; I can speak English, Korean, and French fluently.</li>
+                        <li>The Toronto Blue Jays is my favorite sports team (2025 World Series Game 7 still hurts).</li>
+                    </ul>
                 </div>
             </aside>
         </section>
     </main>
 
-    <footer class="site-footer reveal-on-scroll">
+    <footer class="site-footer">
         <p>2 Corinthians 5:7 NIV — For we live by faith, not by sight.</p>
         <p>&copy; 2026 Daniel Jang. All rights reserved.</p>
     </footer>

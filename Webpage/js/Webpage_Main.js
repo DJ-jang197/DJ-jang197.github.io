@@ -48,7 +48,13 @@ function createThemeToggle(nav) {
 
     if (document.body.classList.contains("site-redesign")) {
         const inner = nav.querySelector(".nav-inner");
-        if (inner) {
+        const endSlot = inner && inner.querySelector(".nav-end");
+        const endcap = inner && inner.querySelector(".nav-endcap");
+        if (endSlot) {
+            endSlot.appendChild(toggleButton);
+        } else if (endcap) {
+            endcap.appendChild(toggleButton);
+        } else if (inner) {
             inner.appendChild(toggleButton);
         } else {
             nav.appendChild(toggleButton);
@@ -105,9 +111,16 @@ function createNavSocialLinks(nav) {
 
     if (document.body.classList.contains("site-redesign")) {
         const inner = nav.querySelector(".nav-inner");
-        const brand = inner && inner.querySelector(".nav-brand");
-        if (inner && brand) {
-            inner.insertBefore(wrap, brand);
+        const start = inner && inner.querySelector(".nav-start");
+        const endcap = inner && inner.querySelector(".nav-endcap");
+        const brandInStart = start && start.querySelector(".nav-brand");
+        const brandInCap = endcap && endcap.querySelector(".nav-brand");
+        if (inner && start && brandInStart) {
+            start.insertBefore(wrap, brandInStart);
+        } else if (inner && endcap && brandInCap) {
+            endcap.insertBefore(wrap, brandInCap);
+        } else if (inner && brandInCap) {
+            inner.insertBefore(wrap, brandInCap);
         } else if (inner) {
             inner.insertBefore(wrap, inner.firstChild);
         } else {
@@ -118,17 +131,10 @@ function createNavSocialLinks(nav) {
     }
 }
 
-function updateScrollProgress() {
-    const scrollTop = window.scrollY || document.documentElement.scrollTop;
-    const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
-    document.documentElement.style.setProperty("--scroll-progress", `${Math.min(100, Math.max(0, progress))}%`);
-}
-
 function setupRevealAnimations() {
     const bubblePages = document.body.classList.contains("site-redesign");
     const selectors = bubblePages
-        ? [".reveal-on-scroll", "[data-chat-bubble]", ".about-gallery", ".project-spotlight"]
+        ? [".reveal-on-scroll", "[data-chat-bubble]", ".project-spotlight", ".contact-panel"]
         : ["header", "section", ".project-list", ".home-images", ".about-images", ".general-button", ".view-website-button", ".contact-panel"];
 
     const revealTargets = [];
@@ -173,14 +179,12 @@ function setupHeroMouseParallax() {
     }
 
     const hero = layer.closest(".hero");
-    if (!hero) {
-        return;
-    }
-
     const strength = 6;
 
     const onMove = (event) => {
-        const rect = hero.getBoundingClientRect();
+        const rect = hero
+            ? hero.getBoundingClientRect()
+            : { left: 0, top: 0, width: window.innerWidth, height: window.innerHeight };
         const x = (event.clientX - rect.left) / rect.width - 0.5;
         const y = (event.clientY - rect.top) / rect.height - 0.5;
         const mx = Math.round(x * strength * 4) / 4;
@@ -194,8 +198,9 @@ function setupHeroMouseParallax() {
         layer.style.setProperty("--my", "0px");
     };
 
-    hero.addEventListener("mousemove", onMove);
-    hero.addEventListener("mouseleave", onLeave);
+    const parallaxTarget = hero || document.body;
+    parallaxTarget.addEventListener("mousemove", onMove, { passive: true });
+    parallaxTarget.addEventListener("mouseleave", onLeave);
 }
 
 function setupHeroParallaxLegacy() {
@@ -300,26 +305,29 @@ function appendRichBullet(li, text) {
     });
 }
 
-function setupHeroQuoteTypewriter() {
-    const el = document.getElementById("hero-typewriter");
-    if (!el) {
+function setupTypewriterElements() {
+    const nodes = document.querySelectorAll("[data-typewriter-text]");
+    if (nodes.length === 0) {
         return;
     }
-    const full = el.getAttribute("data-typewriter-text") || "";
-    el.textContent = "";
-    if (prefersReducedMotion || !full) {
-        el.textContent = full;
-        return;
-    }
-    let i = 0;
-    const step = () => {
-        if (i <= full.length) {
-            el.textContent = full.slice(0, i);
-            i += 1;
-            window.setTimeout(step, 42);
+    nodes.forEach((el, index) => {
+        const full = el.getAttribute("data-typewriter-text") || "";
+        el.textContent = "";
+        if (prefersReducedMotion || !full) {
+            el.textContent = full;
+            return;
         }
-    };
-    window.setTimeout(step, 280);
+        let i = 0;
+        const startDelay = 260 + index * 140;
+        const step = () => {
+            if (i <= full.length) {
+                el.textContent = full.slice(0, i);
+                i += 1;
+                window.setTimeout(step, 40);
+            }
+        };
+        window.setTimeout(step, startDelay);
+    });
 }
 
 function setupTypewriterHeadlines() {
@@ -559,16 +567,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const nav = document.querySelector("nav");
     createNavSocialLinks(nav);
     createThemeToggle(nav);
-    updateScrollProgress();
     setupRevealAnimations();
     setupHeroMouseParallax();
     setupHeroParallaxLegacy();
     setupProjectCardStacks();
     setupDjMixerProjects();
-    setupHeroQuoteTypewriter();
+    setupTypewriterElements();
     setupTypewriterHeadlines();
     setupInteractiveCursor();
 
-    window.addEventListener("scroll", updateScrollProgress, { passive: true });
-    window.addEventListener("resize", updateScrollProgress);
 });

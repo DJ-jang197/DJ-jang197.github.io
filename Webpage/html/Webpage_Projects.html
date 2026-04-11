@@ -22,110 +22,211 @@
     <link rel="stylesheet" href="../css/Webpage_Home.css">
     <title>Daniel Jang's WebPage: Projects</title>
 </head>
-
-<body>
-    <nav> <!-- Navigation Bar-->
-        <table>
-            <tr>
-                <td><a href="index.html#hero"><b>Home</b></a></td>
-                <td><a href="Webpage_About.html"><b>About</b></a></td>
-                <td class="tab-nav"><a href="index.html#projects"><b>Projects</b></a></td>
-                <td><a href="Webpage_Contact.html"><b>Contact</b></a></td>
-            </tr>
-        </table>
+<body class="site-redesign projects-page">
+    <nav class="site-nav" aria-label="Primary">
+        <div class="nav-inner">
+            <div class="nav-start">
+                <a class="nav-brand" href="index.html#hero">DJ</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html#hero">Home</a></li>
+                <li><a href="Webpage_About.html">About</a></li>
+                <li><a href="Webpage_Projects.html" aria-current="page">Projects</a></li>
+                <li><a href="Webpage_Contact.html">Contact</a></li>
+            </ul>
+            <div class="nav-end"></div>
+        </div>
     </nav>
-    
-    <header class="Welcome"> <!-- Welcome header-->
-        <br>
-        <h2 class="big-font">Daniel Jang's Projects</h2>
-        <br>
-    </header>
-    <br>
 
-    <div class="project-list">
-        <div class="project-stacks">
-            <div class="card-stack">
-                <button class="stack-arrow stack-arrow-left" type="button" aria-label="Show previous project card">&#10094;</button>
-                <button class="stack-arrow stack-arrow-right" type="button" aria-label="Show next project card">&#10095;</button>
+    <div class="home-page-wrap">
+        <div class="home-page-inner">
 
-                <article class="project-card">
-                    <h2>Project 1: UCEY — Planner-facing Interface (Mar 2026)</h2>
-                    <ul>
-                        <li>Designed and built an urban planning web app that locates and estimates costs for underutilized sites (e.g., brownfields) in major cities using TypeScript and React.</li>
-                        <li>Owned the front-end, integrating APIs into an interactive map experience.</li>
-                    </ul>
-                    <div class="project-card-buttons" style="gap: 0.15rem;">
-                        <button onclick="window.open('https://github.com/DJ-jang197/UCEY', '_blank')" class="view-website-button">
-                            <b>View Source Code</b>
-                        </button>
-                        <button onclick="window.open('https://youtu.be/guHyDqEA1P4?si=cthgOiMxLEOcH3-i', '_blank')" class="view-website-button">
-                            <b>View Demo</b>
-                        </button>
+    <section id="projects" class="projects-deck reveal-on-scroll" aria-labelledby="projects-heading">
+        <div class="projects-body">
+            <h2 id="projects-heading" class="projects-title">PROJECTS</h2>
+            <p class="projects-hint">Tap a pad or platter — drag in a circle on <strong>‹</strong> for previous and <strong>›</strong> for next.</p>
+            <div class="mixer-wrap" data-mixer>
+                <div class="dj-console dj-console--pro" aria-label="Interactive decks — spin platters to change project">
+                    <div class="dj-console__top-bar" aria-hidden="true">
+                        <span class="dj-console__badge">CH-A</span>
+                        <div class="dj-console__bpm">
+                            <span class="dj-console__bpm-label">BPM</span>
+                            <span class="dj-console__bpm-val">128.0</span>
+                        </div>
+                        <div class="dj-console__lights">
+                            <span class="dj-led dj-led--cyan"></span>
+                            <span class="dj-led dj-led--pink"></span>
+                            <span class="dj-led dj-led--lime"></span>
+                            <span class="dj-led dj-led--amber"></span>
+                        </div>
+                        <span class="dj-console__badge dj-console__badge--right">CH-B</span>
                     </div>
-                </article>
-
-                <article class="project-card">
-                    <h2>Project 2: YSafe — Navigation App (Feb 2026)</h2>
-                    <ul>
-                        <li>Developed a navigation web app and an AI assistant using Dart, integrating Google APIs to visualize safe and time-efficient pedestrian routes.</li>
-                        <li>Optimized route generation by extracting large datasets from York Region Open Data (past 5 years) to improve accuracy for end users.</li>
-                    </ul>
-                    <div class="project-card-buttons">
-                        <button onclick="window.open('https://github.com/DJ-jang197/yorkuhacks', '_blank')" class="view-website-button">
-                            <b>View Source Code</b>
+                    <div class="dj-console__platters-row">
+                        <div class="dj-platter-side dj-platter-side--left" aria-hidden="true">
+                            <div class="dj-channel-strip">
+                                <span class="dj-vu-seg"></span><span class="dj-vu-seg"></span><span class="dj-vu-seg"></span>
+                                <span class="dj-vu-seg dj-vu-seg--hot"></span><span class="dj-vu-seg"></span>
+                                <div class="dj-micro-faders">
+                                    <span class="dj-micro-fader"></span><span class="dj-micro-fader dj-micro-fader--short"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="dj-jog" data-jog="prev" aria-label="Previous project — spin left platter">
+                            <span class="dj-jog-platter"><span class="dj-jog-arrow" aria-hidden="true">‹</span></span>
                         </button>
+                        <div class="dj-mixer-core" aria-hidden="true">
+                            <div class="dj-rail__row">
+                                <div class="dj-knob-col">
+                                    <span class="dj-knob dj-knob--lg"></span>
+                                    <span class="dj-knob"></span>
+                                </div>
+                                <div class="dj-knob-grid">
+                                    <span class="dj-knob"></span><span class="dj-knob dj-knob--sm"></span>
+                                    <span class="dj-knob dj-knob--sm"></span><span class="dj-knob"></span>
+                                </div>
+                            </div>
+                            <span class="dj-browse"></span>
+                            <div class="dj-phones-row">
+                                <span class="dj-phone-btn"></span><span class="dj-phone-btn dj-phone-btn--wide"></span>
+                            </div>
+                            <div class="dj-faders dj-faders--triple">
+                                <span class="dj-fader dj-fader--tall"></span><span class="dj-fader"></span><span class="dj-fader dj-fader--short"></span>
+                            </div>
+                            <div class="dj-crossfader dj-crossfader--offset"></div>
+                        </div>
+                        <button type="button" class="dj-jog" data-jog="next" aria-label="Next project — spin right platter">
+                            <span class="dj-jog-platter"><span class="dj-jog-arrow" aria-hidden="true">›</span></span>
+                        </button>
+                        <div class="dj-platter-side dj-platter-side--right" aria-hidden="true">
+                            <div class="dj-screen"></div>
+                            <div class="dj-mini-pads">
+                                <span class="dj-mini-pad"></span><span class="dj-mini-pad dj-mini-pad--accent"></span><span class="dj-mini-pad"></span>
+                            </div>
+                        </div>
                     </div>
-                </article>
-
-                <article class="project-card">
-                    <h2>Project 3: Personal Website (Early 2025)</h2>
-                    <ul>
-                        <li>Description: This is my personal website where I showcase my background, projects, and contact information.
-                            You are currently viewing it!
-                        </li>
-                        <li>It is built using HTML, CSS, and JavaScript.</li>
-                    </ul>
-                    <button onclick="window.location.href='index.html'" class="view-website-button">
-                        <b>View Website</b>
-                    </button>
-                </article>
-
-                <article class="project-card">
-                    <h2>Project 4: Calculator Website (2024)</h2>
-                    <ul>
-                        <li>Developed a desktop and mobile friendly web-based calculator using HTML, CSS, and JavaScript
-                            with a personal goal of completion within 24 hours.</li>
-                        <li>Features include basic arithmetic and <b>BEDMAS</b> operations, a delete function, and responsive design.</li>
-                        <li>Able to detect malformed expressions and display an error message (Ex: 2 * / 3).</li>
-                    </ul>
-                    <button onclick="window.location.href='Calculator.html'" class="view-website-button">
-                        <b>View Program</b>
-                    </button>
-                </article>
-
-                <article class="project-card">
-                    <hr>
-                    <h2>Upcoming:</h2>
-                    <ul>
-                        <li>Planning to participate in hackathons and test my progamming capabilities. Through the hackathon experience,
-                            not only will I be able to refine my problem-solving skills, but also learn how to collaborate effectively in a competitive team environment.</li>
-                        </li>
-                        <li>Currently creating a portfolio of mini-projects that demonstrate my skills in various programming languages and technologies.
-                            <ul class="subpoint"><li>Languages include: Java, C, Python, JavaScript, HTML/CSS, and more.</li></ul>
-                        </li>
-                    </ul>
+                    <div class="dj-console__dense-row" aria-hidden="true">
+                        <div class="dj-pad-matrix">
+                            <span class="dj-pad"></span><span class="dj-pad dj-pad--cyan-edge"></span><span class="dj-pad"></span><span class="dj-pad"></span>
+                            <span class="dj-pad"></span><span class="dj-pad"></span><span class="dj-pad"></span><span class="dj-pad"></span>
+                            <span class="dj-pad dj-pad--matrix-accent"></span><span class="dj-pad"></span><span class="dj-pad"></span><span class="dj-pad"></span>
+                            <span class="dj-pad"></span><span class="dj-pad"></span><span class="dj-pad"></span><span class="dj-pad dj-pad--matrix-wide"></span>
+                        </div>
+                        <div class="dj-dense-transport">
+                            <span class="dj-btn dj-btn--sync">SYNC</span>
+                            <span class="dj-btn dj-btn--cue">CUE</span>
+                            <span class="dj-btn dj-btn--play">▶</span>
+                            <span class="dj-btn">LOOP</span>
+                            <span class="dj-btn">ROLL</span>
+                            <span class="dj-btn">SLIP</span>
+                            <span class="dj-btn">FLX</span>
+                            <span class="dj-btn">TAP</span>
+                        </div>
+                        <div class="dj-dense-pitch-row">
+                            <span class="dj-pitch-label">PITCH A</span>
+                            <span class="dj-pitch-slider"></span>
+                            <span class="dj-pitch-label">PITCH B</span>
+                            <span class="dj-pitch-slider dj-pitch-slider--mirror"></span>
+                        </div>
+                        <div class="dj-sampler-rail dj-sampler-rail--wide">
+                            <span class="dj-samp-btn"></span><span class="dj-samp-btn"></span><span class="dj-samp-btn dj-samp-btn--lg"></span>
+                            <span class="dj-samp-btn"></span><span class="dj-samp-btn"></span><span class="dj-samp-btn"></span>
+                        </div>
+                    </div>
+                    <div class="dj-console__fx-rack" aria-hidden="true">
+                        <span class="dj-fx-label">FX</span>
+                        <div class="dj-fx-knobs">
+                            <span class="dj-knob dj-knob--fx"></span><span class="dj-knob dj-knob--fx dj-knob--fx-offset"></span><span class="dj-knob dj-knob--fx"></span>
+                        </div>
+                        <div class="dj-fx-meters">
+                            <span class="dj-fx-meter"></span><span class="dj-fx-meter dj-fx-meter--low"></span>
+                        </div>
+                        <span class="dj-fx-label dj-fx-label--right">SEND</span>
+                    </div>
+                </div>
+                <article class="project-spotlight" data-project-card aria-live="polite">
+                    <h3 class="project-spotlight-title" data-project-title>Project 1: UCEY — Planner-facing Interface (Mar 2026)</h3>
+                    <p class="project-spotlight-meta" data-project-meta></p>
+                    <div class="project-spotlight-body" data-project-body></div>
+                    <div class="project-tags" data-project-tags></div>
+                    <div class="project-spotlight-actions" data-project-actions></div>
                 </article>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- <img src="Projects_Image.jpg" alt="Projects Image" class="projects-image">
-     ADD AS SOON AS HACKATHON IS COMPLETED -->
-    <footer>
-        <p>2 Corinthians 5:7 NIV - For we live by faith, not by sight.</p>
+    <footer class="site-footer">
+        <p>2 Corinthians 5:7 NIV — For we live by faith, not by sight.</p>
         <p>&copy; 2026 Daniel Jang. All rights reserved.</p>
     </footer>
 
+        </div>
+    </div>
+
+    <script type="application/json" id="projects-data">
+    [
+        {
+            "title": "Project 1: UCEY — Planner-facing Interface (Mar 2026)",
+            "meta": "",
+            "bullets": [
+                "Designed and built an urban planning web app that locates and estimates costs for underutilized sites (e.g., brownfields) in major cities using TypeScript and React.",
+                "Owned the front-end, integrating APIs into an interactive map experience."
+            ],
+            "tags": ["TypeScript", "React", "Maps", "APIs"],
+            "actions": [
+                { "label": "VIEW SOURCE CODE", "href": "https://github.com/DJ-jang197/UCEY" },
+                { "label": "VIEW DEMO", "href": "https://youtu.be/guHyDqEA1P4?si=cthgOiMxLEOcH3-i" }
+            ]
+        },
+        {
+            "title": "Project 2: YSafe — Navigation App (Feb 2026)",
+            "meta": "",
+            "bullets": [
+                "Developed a navigation web app and an AI assistant using Dart, integrating Google APIs to visualize safe and time-efficient pedestrian routes.",
+                "Optimized route generation by extracting large datasets from York Region Open Data (past 5 years) to improve accuracy for end users."
+            ],
+            "tags": ["Dart", "Google APIs", "Open Data"],
+            "actions": [
+                { "label": "VIEW SOURCE CODE", "href": "https://github.com/DJ-jang197/yorkuhacks" }
+            ]
+        },
+        {
+            "title": "Project 3: Personal Website (Early 2025)",
+            "meta": "",
+            "bullets": [
+                "A personal site for background, projects, and contact — built with HTML, CSS, and JavaScript.",
+                "Projects and the deck UI live on this page; home focuses on the intro and résumé."
+            ],
+            "tags": ["HTML", "CSS", "JavaScript"],
+            "actions": [
+                { "label": "VIEW HOME", "href": "index.html" }
+            ]
+        },
+        {
+            "title": "Project 4: Calculator Website (2024)",
+            "meta": "",
+            "bullets": [
+                "Developed a desktop and mobile friendly web-based calculator using HTML, CSS, and JavaScript with a personal goal of completion within 24 hours.",
+                "Features include basic arithmetic and **BEDMAS** operations, a delete function, and responsive design.",
+                "Able to detect malformed expressions and display an error message (Ex: 2 * / 3)."
+            ],
+            "tags": ["HTML", "CSS", "JavaScript"],
+            "actions": [
+                { "label": "VIEW PROGRAM", "href": "Calculator.html" }
+            ]
+        },
+        {
+            "title": "Upcoming:",
+            "meta": "",
+            "bullets": [
+                "Planning to participate in hackathons and test my progamming capabilities. Through the hackathon experience, not only will I be able to refine my problem-solving skills, but also learn how to collaborate effectively in a competitive team environment.",
+                "Currently creating a portfolio of mini-projects that demonstrate my skills in various programming languages and technologies.",
+                "Languages include: Java, C, Python, JavaScript, HTML/CSS, and more."
+            ],
+            "tags": [],
+            "actions": []
+        }
+    ]
+    </script>
     <script src="../js/Webpage_Main.js"></script>
 </body>
 </html>

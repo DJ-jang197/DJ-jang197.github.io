@@ -25,177 +25,49 @@
 <body class="site-redesign">
     <nav class="site-nav" aria-label="Primary">
         <div class="nav-inner">
-            <a class="nav-brand" href="#hero">DJ</a>
+            <div class="nav-start">
+                <a class="nav-brand" href="#hero">DJ</a>
+            </div>
             <ul class="nav-links">
-                <li><a href="#hero">Home</a></li>
+                <li><a href="#hero" aria-current="page">Home</a></li>
                 <li><a href="Webpage_About.html">About</a></li>
-                <li><a href="#projects">Projects</a></li>
+                <li><a href="Webpage_Projects.html">Projects</a></li>
                 <li><a href="Webpage_Contact.html">Contact</a></li>
             </ul>
+            <div class="nav-end"></div>
         </div>
     </nav>
 
+    <div class="home-page-wrap">
+        <div class="home-page-inner">
+
     <section id="hero" class="hero" aria-label="Introduction">
         <div class="hero-stack">
-            <div class="hero-backdrop" data-hero-parallax>
-                <img class="hero-full-image photo-crisp" src="../images/hero-field.png" alt="" decoding="async" fetchpriority="high">
-                <div class="hero-purple-veil" aria-hidden="true"></div>
-                <div class="hero-film-grain" aria-hidden="true"></div>
-            </div>
             <div class="hero-ui">
                 <div class="hero-content">
-                    <p class="hero-typewriter" id="hero-typewriter" data-typewriter-text  ="&quot;What could possibly go wrong?&quot;" aria-live="polite"></p>
                     <div class="hero-nameplate" aria-label="Daniel Jang">
                         <span class="hero-line hero-daniel">DANIEL</span>
                         <span class="hero-line hero-jang">JANG</span>
                     </div>
+                    <p class="hero-typewriter" id="hero-typewriter" data-typewriter-text="&quot;What could possibly go wrong?&quot;" aria-live="polite"></p>
                     <p class="hero-kicker">Computer Science @ Waterloo</p>
                     <p class="hero-kicker hero-kicker--coop">Seeking for Fall 2026 Co-op</p>
-                    <div class="hero-cta">
+                    <div class="hero-cta hero-cta--single">
                         <a class="btn-deck" href="../docs/Daniel_Jang_Resume.pdf" target="_blank" rel="noopener">RÉSUMÉ</a>
-                        <a class="btn-deck" href="Webpage_About.html">ABOUT</a>
                     </div>
                 </div>
-                <a class="hero-scroll-hint" href="#projects">DECKS ↓</a>
             </div>
         </div>
     </section>
 
-    <section id="projects" class="projects-deck reveal-on-scroll" aria-labelledby="projects-heading">
-        <div class="projects-banner" aria-hidden="true"></div>
-        <div class="projects-body">
-            <h2 id="projects-heading" class="projects-title">PROJECTS</h2>
-            <p class="projects-hint">Tap a pad or platter — drag in a circle on <strong>‹</strong> for previous and <strong>›</strong> for next.</p>
-            <div class="mixer-wrap" data-mixer>
-                <div class="dj-console" aria-label="Interactive decks — spin platters to change project">
-                    <div class="dj-console__lights" aria-hidden="true">
-                        <span class="dj-led dj-led--cyan"></span>
-                        <span class="dj-led dj-led--pink"></span>
-                        <span class="dj-led dj-led--lime"></span>
-                    </div>
-                    <div class="dj-console__decks">
-                        <div class="dj-deck dj-deck--left">
-                            <button type="button" class="dj-jog" data-jog="prev" aria-label="Previous project — spin left platter">
-                                <span class="dj-jog-platter"><span class="dj-jog-arrow" aria-hidden="true">‹</span></span>
-                            </button>
-                            <div class="dj-pad-row" aria-hidden="true">
-                                <span class="dj-pad"></span><span class="dj-pad"></span><span class="dj-pad"></span><span class="dj-pad"></span>
-                            </div>
-                            <div class="dj-transport" aria-hidden="true">
-                                <span class="dj-btn dj-btn--sync">SYNC</span>
-                                <span class="dj-btn dj-btn--cue">CUE</span>
-                                <span class="dj-btn dj-btn--play">▶</span>
-                            </div>
-                        </div>
-                        <div class="dj-rail" aria-hidden="true">
-                            <div class="dj-knob-col">
-                                <span class="dj-knob"></span><span class="dj-knob"></span><span class="dj-knob"></span><span class="dj-knob"></span>
-                            </div>
-                            <span class="dj-browse"></span>
-                            <div class="dj-phones-row">
-                                <span class="dj-phone-btn"></span><span class="dj-phone-btn"></span>
-                            </div>
-                            <div class="dj-faders">
-                                <span class="dj-fader"></span><span class="dj-fader"></span>
-                            </div>
-                            <div class="dj-crossfader"></div>
-                        </div>
-                        <div class="dj-deck dj-deck--right">
-                            <button type="button" class="dj-jog" data-jog="next" aria-label="Next project — spin right platter">
-                                <span class="dj-jog-platter"><span class="dj-jog-arrow" aria-hidden="true">›</span></span>
-                            </button>
-                            <div class="dj-pad-row" aria-hidden="true">
-                                <span class="dj-pad"></span><span class="dj-pad"></span><span class="dj-pad"></span><span class="dj-pad"></span>
-                            </div>
-                            <div class="dj-transport" aria-hidden="true">
-                                <span class="dj-btn dj-btn--sync">SYNC</span>
-                                <span class="dj-btn dj-btn--cue">CUE</span>
-                                <span class="dj-btn dj-btn--play">▶</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <article class="project-spotlight" data-project-card aria-live="polite">
-                    <h3 class="project-spotlight-title" data-project-title>Project 1: UCEY — Planner-facing Interface (Mar 2026)</h3>
-                    <p class="project-spotlight-meta" data-project-meta></p>
-                    <div class="project-spotlight-body" data-project-body></div>
-                    <div class="project-tags" data-project-tags></div>
-                    <div class="project-spotlight-actions" data-project-actions></div>
-                </article>
-            </div>
-        </div>
-    </section>
-
-    <footer class="site-footer reveal-on-scroll">
+    <footer class="site-footer">
         <p>2 Corinthians 5:7 NIV — For we live by faith, not by sight.</p>
         <p>&copy; 2026 Daniel Jang. All rights reserved.</p>
     </footer>
 
-    <script type="application/json" id="projects-data">
-    [
-        {
-            "title": "Project 1: UCEY — Planner-facing Interface (Mar 2026)",
-            "meta": "",
-            "bullets": [
-                "Designed and built an urban planning web app that locates and estimates costs for underutilized sites (e.g., brownfields) in major cities using TypeScript and React.",
-                "Owned the front-end, integrating APIs into an interactive map experience."
-            ],
-            "tags": ["TypeScript", "React", "Maps", "APIs"],
-            "actions": [
-                { "label": "VIEW SOURCE CODE", "href": "https://github.com/DJ-jang197/UCEY" },
-                { "label": "VIEW DEMO", "href": "https://youtu.be/guHyDqEA1P4?si=cthgOiMxLEOcH3-i" }
-            ]
-        },
-        {
-            "title": "Project 2: YSafe — Navigation App (Feb 2026)",
-            "meta": "",
-            "bullets": [
-                "Developed a navigation web app and an AI assistant using Dart, integrating Google APIs to visualize safe and time-efficient pedestrian routes.",
-                "Optimized route generation by extracting large datasets from York Region Open Data (past 5 years) to improve accuracy for end users."
-            ],
-            "tags": ["Dart", "Google APIs", "Open Data"],
-            "actions": [
-                { "label": "VIEW SOURCE CODE", "href": "https://github.com/DJ-jang197/yorkuhacks" }
-            ]
-        },
-        {
-            "title": "Project 3: Personal Website (Early 2025)",
-            "meta": "",
-            "bullets": [
-                "Description: This is my personal website where I showcase my background, projects, and contact information. You are currently viewing it!",
-                "It is built using HTML, CSS, and JavaScript."
-            ],
-            "tags": ["HTML", "CSS", "JavaScript"],
-            "actions": [
-                { "label": "VIEW WEBSITE", "href": "index.html" }
-            ]
-        },
-        {
-            "title": "Project 4: Calculator Website (2024)",
-            "meta": "",
-            "bullets": [
-                "Developed a desktop and mobile friendly web-based calculator using HTML, CSS, and JavaScript with a personal goal of completion within 24 hours.",
-                "Features include basic arithmetic and **BEDMAS** operations, a delete function, and responsive design.",
-                "Able to detect malformed expressions and display an error message (Ex: 2 * / 3)."
-            ],
-            "tags": ["HTML", "CSS", "JavaScript"],
-            "actions": [
-                { "label": "VIEW PROGRAM", "href": "Calculator.html" }
-            ]
-        },
-        {
-            "title": "Upcoming:",
-            "meta": "",
-            "bullets": [
-                "Planning to participate in hackathons and test my progamming capabilities. Through the hackathon experience, not only will I be able to refine my problem-solving skills, but also learn how to collaborate effectively in a competitive team environment.",
-                "Currently creating a portfolio of mini-projects that demonstrate my skills in various programming languages and technologies.",
-                "Languages include: Java, C, Python, JavaScript, HTML/CSS, and more."
-            ],
-            "tags": [],
-            "actions": []
-        }
-    ]
-    </script>
+        </div>
+    </div>
+
     <script src="../js/Webpage_Main.js"></script>
 </body>
 </html>
