@@ -1,7 +1,5 @@
-// Shared feature flags used by interactive effects.
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-// Resolve theme preference from localStorage, then OS fallback.
 function getPreferredTheme() {
     try {
         const storedTheme = localStorage.getItem("site-theme");
@@ -12,7 +10,6 @@ function getPreferredTheme() {
     return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 }
 
-// Apply or clear dark-theme attribute at the document level.
 function applyTheme(theme) {
     if (theme === "dark") {
         document.documentElement.setAttribute("data-theme", "dark");
@@ -21,9 +18,8 @@ function applyTheme(theme) {
     }
 }
 
-// Inject top-right theme toggle with animated icon states.
 function createThemeToggle(nav) {
-    if (!nav || nav.querySelector(".theme-toggle")) {
+    if (!nav || document.body.classList.contains("site-redesign") || nav.querySelector(".theme-toggle")) {
         return;
     }
 
@@ -53,7 +49,6 @@ function createThemeToggle(nav) {
     nav.appendChild(toggleButton);
 }
 
-// Top-left social icon links (matches Contact page URLs).
 function createNavSocialLinks(nav) {
     if (!nav || nav.querySelector(".nav-social")) {
         return;
@@ -93,10 +88,21 @@ function createNavSocialLinks(nav) {
         wrap.appendChild(a);
     });
 
-    nav.insertBefore(wrap, nav.firstChild);
+    if (document.body.classList.contains("site-redesign")) {
+        const inner = nav.querySelector(".nav-inner");
+        const brand = inner && inner.querySelector(".nav-brand");
+        if (inner && brand) {
+            inner.insertBefore(wrap, brand);
+        } else if (inner) {
+            inner.insertBefore(wrap, inner.firstChild);
+        } else {
+            nav.insertBefore(wrap, nav.firstChild);
+        }
+    } else {
+        nav.insertBefore(wrap, nav.firstChild);
+    }
 }
 
-// Keep nav progress indicator synced with page scroll.
 function updateScrollProgress() {
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
     const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
@@ -104,15 +110,23 @@ function updateScrollProgress() {
     document.documentElement.style.setProperty("--scroll-progress", `${Math.min(100, Math.max(0, progress))}%`);
 }
 
-// Reveal sections/images/buttons as they enter viewport.
 function setupRevealAnimations() {
-    const revealTargets = document.querySelectorAll("header, section, .project-list, .home-images, .about-images, .general-button, .view-website-button");
+    const redesign = document.body.classList.contains("site-redesign");
+    const selectors = redesign
+        ? ["[data-chat-bubble]", ".about-gallery", ".project-spotlight"]
+        : ["header", "section", ".project-list", ".home-images", ".about-images", ".general-button", ".view-website-button"];
+
+    const revealTargets = [];
+    selectors.forEach((sel) => {
+        document.querySelectorAll(sel).forEach((el) => revealTargets.push(el));
+    });
+
     revealTargets.forEach((el) => {
         el.setAttribute("data-reveal", "");
     });
 
     if (prefersReducedMotion || !("IntersectionObserver" in window)) {
-        revealTargets.forEach((el) => el.classList.add("in-view"));
+        revealTargets.forEach((el) => el.classList.add("is-visible", "in-view"));
         return;
     }
 
@@ -120,19 +134,51 @@ function setupRevealAnimations() {
         (entries, obs) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add("in-view");
+                    entry.target.classList.add("is-visible", "in-view");
                     obs.unobserve(entry.target);
                 }
             });
         },
-        { threshold: 0.14, rootMargin: "0px 0px -8% 0px" }
+        { threshold: 0.12, rootMargin: "0px 0px -6% 0px" }
     );
 
     revealTargets.forEach((el) => observer.observe(el));
 }
 
-// Add subtle parallax offset to hero backgrounds on scroll.
-function setupHeroParallax() {
+function setupHeroMouseParallax() {
+    const layer = document.querySelector("[data-hero-parallax]");
+    if (!layer || prefersReducedMotion) {
+        return;
+    }
+
+    const hero = layer.closest(".hero");
+    if (!hero) {
+        return;
+    }
+
+    const strength = 18;
+
+    const onMove = (event) => {
+        const rect = hero.getBoundingClientRect();
+        const x = (event.clientX - rect.left) / rect.width - 0.5;
+        const y = (event.clientY - rect.top) / rect.height - 0.5;
+        layer.style.setProperty("--mx", `${x * strength}px`);
+        layer.style.setProperty("--my", `${y * strength}px`);
+    };
+
+    const onLeave = () => {
+        layer.style.setProperty("--mx", "0px");
+        layer.style.setProperty("--my", "0px");
+    };
+
+    hero.addEventListener("mousemove", onMove);
+    hero.addEventListener("mouseleave", onLeave);
+}
+
+function setupHeroParallaxLegacy() {
+    if (document.body.classList.contains("site-redesign")) {
+        return;
+    }
     const headers = Array.from(document.querySelectorAll("header"));
     if (prefersReducedMotion || headers.length === 0) {
         return;
@@ -152,7 +198,6 @@ function setupHeroParallax() {
     window.addEventListener("scroll", updateParallax, { passive: true });
 }
 
-// Handle project stack ordering + left/right arrow cycling.
 function setupProjectCardStacks() {
     const stacks = document.querySelectorAll(".card-stack");
     stacks.forEach((stack) => {
@@ -170,7 +215,6 @@ function setupProjectCardStacks() {
             rightArrow.addEventListener("click", (event) => {
                 event.preventDefault();
                 event.stopPropagation();
-                // Next: front card moves to back.
                 const frontCard = stack.querySelector(".project-card");
                 if (frontCard) {
                     stack.appendChild(frontCard);
@@ -183,7 +227,6 @@ function setupProjectCardStacks() {
             leftArrow.addEventListener("click", (event) => {
                 event.preventDefault();
                 event.stopPropagation();
-                // Previous: back card moves to front.
                 const cards = stack.querySelectorAll(".project-card");
                 const backCard = cards[cards.length - 1];
                 const frontCard = cards[0];
@@ -194,7 +237,6 @@ function setupProjectCardStacks() {
             });
         }
 
-        // Keyboard support for accessibility while focused on the stack.
         stack.addEventListener("keydown", (event) => {
             if (event.key === "ArrowRight") {
                 event.preventDefault();
@@ -219,8 +261,10 @@ function setupProjectCardStacks() {
     });
 }
 
-// Animate large hero headings with a typewriter effect.
 function setupTypewriterHeadlines() {
+    if (document.body.classList.contains("site-redesign")) {
+        return;
+    }
     const headlines = document.querySelectorAll(".big-font");
     if (headlines.length === 0 || prefersReducedMotion) {
         return;
@@ -240,7 +284,6 @@ function setupTypewriterHeadlines() {
     });
 }
 
-// Render a single crosshair cursor that adds confetti on button hover.
 function setupInteractiveCursor() {
     const isTouchDevice = window.matchMedia("(hover: none), (pointer: coarse)").matches;
     if (isTouchDevice) {
@@ -251,43 +294,216 @@ function setupInteractiveCursor() {
 
     const cursor = document.createElement("div");
     cursor.id = "interactive-cursor";
-    cursor.innerHTML = `
-        <span class="cursor-v"></span>
-        <span class="cursor-h"></span>
-        <span class="confetti"></span>
-        <span class="confetti"></span>
-        <span class="confetti"></span>
-        <span class="confetti"></span>
-    `;
     document.body.appendChild(cursor);
 
-    // Place cursor immediately in the viewport center before first move.
     cursor.style.left = `${window.innerWidth / 2}px`;
     cursor.style.top = `${window.innerHeight / 2}px`;
 
+    let lastTrail = 0;
+    const trailEveryMs = 28;
+
     document.addEventListener("mousemove", (event) => {
-        // Immediate tracking to avoid lerp/trailing lag.
         cursor.style.left = `${event.clientX}px`;
         cursor.style.top = `${event.clientY}px`;
+
         const target = event.target;
-        if (target instanceof Element && target.closest("button")) {
-            cursor.classList.add("cursor-button");
-        } else {
-            cursor.classList.remove("cursor-button");
+        const interactive =
+            target instanceof Element &&
+            (target.closest("a, button, input, textarea, select, .jog, .nav-social-link, .theme-toggle") !== null);
+        cursor.classList.toggle("is-pointer", Boolean(interactive));
+
+        const now = performance.now();
+        if (now - lastTrail > trailEveryMs && !prefersReducedMotion) {
+            lastTrail = now;
+            const dot = document.createElement("span");
+            dot.className = "cursor-trail-dot";
+            dot.style.left = `${event.clientX}px`;
+            dot.style.top = `${event.clientY}px`;
+            document.body.appendChild(dot);
+            window.setTimeout(() => dot.remove(), 600);
         }
     });
 }
 
-// Wire up all shared page features once DOM is ready.
+function setupDjMixerProjects() {
+    const root = document.querySelector("[data-mixer]");
+    const dataEl = document.getElementById("projects-data");
+    if (!root || !dataEl) {
+        return;
+    }
+
+    let projects = [];
+    try {
+        projects = JSON.parse(dataEl.textContent.trim());
+    } catch (_) {
+        return;
+    }
+
+    const card = root.querySelector("[data-project-card]");
+    const titleEl = root.querySelector("[data-project-title]");
+    const metaEl = root.querySelector("[data-project-meta]");
+    const descEl = root.querySelector("[data-project-desc]");
+    const tagsEl = root.querySelector("[data-project-tags]");
+    const actionsEl = root.querySelector("[data-project-actions]");
+    const leftJog = root.querySelector('[data-jog="prev"]');
+    const rightJog = root.querySelector('[data-jog="next"]');
+
+    if (!card || !titleEl || !metaEl || !descEl || !tagsEl || !actionsEl || !leftJog || !rightJog) {
+        return;
+    }
+
+    let index = 0;
+
+    const render = () => {
+        const p = projects[index];
+        if (!p) {
+            return;
+        }
+        titleEl.textContent = p.title || "";
+        metaEl.textContent = p.meta || "";
+        descEl.textContent = p.desc || "";
+        tagsEl.innerHTML = "";
+        (p.tags || []).forEach((tag) => {
+            const span = document.createElement("span");
+            span.className = "project-tag";
+            span.textContent = tag;
+            tagsEl.appendChild(span);
+        });
+        actionsEl.innerHTML = "";
+        (p.actions || []).forEach((action) => {
+            const a = document.createElement("a");
+            a.className = "btn-neon";
+            a.textContent = action.label;
+            a.href = action.href || "#";
+            if (action.href && /^https?:\/\//i.test(action.href)) {
+                a.target = "_blank";
+                a.rel = "noopener noreferrer";
+            }
+            actionsEl.appendChild(a);
+        });
+    };
+
+    const spin = (jogEl) => {
+        jogEl.classList.remove("is-spinning");
+        void jogEl.offsetWidth;
+        jogEl.classList.add("is-spinning");
+    };
+
+    const transitionTo = (nextIndex) => {
+        index = (nextIndex + projects.length) % projects.length;
+        card.classList.add("is-transitioning");
+        window.setTimeout(() => {
+            render();
+            card.classList.remove("is-transitioning");
+        }, prefersReducedMotion ? 0 : 200);
+    };
+
+    const go = (delta, jogEl) => {
+        spin(jogEl);
+        transitionTo(index + delta);
+    };
+
+    const wireJog = (jogEl, deltaSign) => {
+        let startAngle = 0;
+        let accumulated = 0;
+        let active = false;
+        let dragMoved = false;
+
+        const angleFromEvent = (event) => {
+            const rect = jogEl.getBoundingClientRect();
+            const cx = rect.left + rect.width / 2;
+            const cy = rect.top + rect.height / 2;
+            return Math.atan2(event.clientY - cy, event.clientX - cx);
+        };
+
+        jogEl.addEventListener("pointerdown", (event) => {
+            if (event.button !== 0) {
+                return;
+            }
+            dragMoved = false;
+            active = true;
+            accumulated = 0;
+            startAngle = angleFromEvent(event);
+            jogEl.setPointerCapture(event.pointerId);
+        });
+
+        jogEl.addEventListener("pointermove", (event) => {
+            if (!active) {
+                return;
+            }
+            const a = angleFromEvent(event);
+            let d = a - startAngle;
+            if (d > Math.PI) {
+                d -= Math.PI * 2;
+            }
+            if (d < -Math.PI) {
+                d += Math.PI * 2;
+            }
+            if (Math.abs(d) > 0.03) {
+                dragMoved = true;
+            }
+            accumulated += d;
+            startAngle = a;
+            const threshold = 0.65;
+            if (accumulated > threshold) {
+                accumulated = 0;
+                go(deltaSign, jogEl);
+            } else if (accumulated < -threshold) {
+                accumulated = 0;
+                go(-deltaSign, jogEl);
+            }
+        });
+
+        const end = () => {
+            active = false;
+            accumulated = 0;
+        };
+        jogEl.addEventListener("pointerup", end);
+        jogEl.addEventListener("pointercancel", end);
+
+        jogEl.addEventListener("click", (e) => {
+            if (dragMoved) {
+                e.preventDefault();
+                dragMoved = false;
+                return;
+            }
+            go(deltaSign, jogEl);
+        });
+    };
+
+    wireJog(leftJog, -1);
+    wireJog(rightJog, 1);
+
+    leftJog.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            go(-1, leftJog);
+        }
+    });
+    rightJog.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            go(1, rightJog);
+        }
+    });
+
+    render();
+}
+
 document.addEventListener("DOMContentLoaded", () => {
-    applyTheme(getPreferredTheme());
+    if (!document.body.classList.contains("site-redesign")) {
+        applyTheme(getPreferredTheme());
+    }
+
     const nav = document.querySelector("nav");
     createNavSocialLinks(nav);
     createThemeToggle(nav);
     updateScrollProgress();
     setupRevealAnimations();
-    setupHeroParallax();
+    setupHeroMouseParallax();
+    setupHeroParallaxLegacy();
     setupProjectCardStacks();
+    setupDjMixerProjects();
     setupTypewriterHeadlines();
     setupInteractiveCursor();
 
