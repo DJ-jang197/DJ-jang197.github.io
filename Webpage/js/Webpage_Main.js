@@ -111,8 +111,9 @@ function updateScrollProgress() {
 }
 
 function setupRevealAnimations() {
-    const redesign = document.body.classList.contains("site-redesign");
-    const selectors = redesign
+    const bubblePages =
+        document.body.classList.contains("site-redesign") || document.body.classList.contains("contact-layout");
+    const selectors = bubblePages
         ? ["[data-chat-bubble]", ".about-gallery", ".project-spotlight"]
         : ["header", "section", ".project-list", ".home-images", ".about-images", ".general-button", ".view-website-button"];
 
@@ -156,14 +157,16 @@ function setupHeroMouseParallax() {
         return;
     }
 
-    const strength = 18;
+    const strength = 6;
 
     const onMove = (event) => {
         const rect = hero.getBoundingClientRect();
         const x = (event.clientX - rect.left) / rect.width - 0.5;
         const y = (event.clientY - rect.top) / rect.height - 0.5;
-        layer.style.setProperty("--mx", `${x * strength}px`);
-        layer.style.setProperty("--my", `${y * strength}px`);
+        const mx = Math.round(x * strength * 4) / 4;
+        const my = Math.round(y * strength * 4) / 4;
+        layer.style.setProperty("--mx", `${mx}px`);
+        layer.style.setProperty("--my", `${my}px`);
     };
 
     const onLeave = () => {
@@ -300,7 +303,7 @@ function setupInteractiveCursor() {
     cursor.style.top = `${window.innerHeight / 2}px`;
 
     let lastTrail = 0;
-    const trailEveryMs = 28;
+    const trailEveryMs = 48;
 
     document.addEventListener("mousemove", (event) => {
         cursor.style.left = `${event.clientX}px`;
@@ -309,7 +312,7 @@ function setupInteractiveCursor() {
         const target = event.target;
         const interactive =
             target instanceof Element &&
-            (target.closest("a, button, input, textarea, select, .jog, .nav-social-link, .theme-toggle") !== null);
+            (target.closest("a, button, input, textarea, select, .dj-jog, .nav-social-link, .theme-toggle") !== null);
         cursor.classList.toggle("is-pointer", Boolean(interactive));
 
         const now = performance.now();
@@ -320,7 +323,7 @@ function setupInteractiveCursor() {
             dot.style.left = `${event.clientX}px`;
             dot.style.top = `${event.clientY}px`;
             document.body.appendChild(dot);
-            window.setTimeout(() => dot.remove(), 600);
+            window.setTimeout(() => dot.remove(), 480);
         }
     });
 }
@@ -473,19 +476,6 @@ function setupDjMixerProjects() {
 
     wireJog(leftJog, -1);
     wireJog(rightJog, 1);
-
-    leftJog.addEventListener("keydown", (e) => {
-        if (e.key === "Enter" || e.key === " ") {
-            e.preventDefault();
-            go(-1, leftJog);
-        }
-    });
-    rightJog.addEventListener("keydown", (e) => {
-        if (e.key === "Enter" || e.key === " ") {
-            e.preventDefault();
-            go(1, rightJog);
-        }
-    });
 
     render();
 }

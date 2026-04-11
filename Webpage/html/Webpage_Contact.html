@@ -16,13 +16,13 @@
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Rubik+Wet+Paint&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Monoton&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/Webpage_Home.css">
     <title>Daniel Jang's WebPage: Contact</title>
 </head>
 
-<body>
-    <nav> <!-- Navigation Bar-->
+<body class="contact-layout">
+    <nav>
         <table>
             <tr>
                 <td><a href="index.html#hero"><b>Home</b></a></td>
@@ -32,32 +32,56 @@
             </tr>
         </table>
     </nav>
-    
-    <header class="Welcome"> <!-- Welcome header-->
-        <br>
-        <h2 class="big-font">Connect with Daniel Jang</h2>
-        <br>
-    </header>
-    <br>
 
-    <section class="contact-wrapper">
-        <div class="contact-section">
-            <h1>Feel free to reach out to me through any of the following methods:</h1>
-            <br>
-            <ul>
-                <li class="contact-method">Email (preferred): <a href="mailto:d2jang@uwaterloo.ca">d2jang@uwaterloo.ca</a></li>
-                <li class="contact-method">LinkedIn: <a href="https://www.linkedin.com/in/daniel-jang197">Daniel Jang's LinkedIn</a></li>
-                <li class="contact-method">Instagram: <a href="https://www.instagram.com/dj_jang197/">dj_jang197</a> (Note: It is a private account)</li>
-                <li class="contact-method">GitHub: <a href="https://github.com/DJ-jang197">DJ-jang197</a></li>
-            </ul>
-            <br>
-            <h2>Other contact methods may be provided upon request.</h2>
+    <main class="contact-shell">
+        <div class="contact-shell__bg" role="img" aria-label="Antelope Canyon landscape"></div>
+        <div class="contact-shell__scrim" aria-hidden="true"></div>
+        <div class="contact-shell__inner">
+            <header class="contact-shell__header">
+                <h1 class="big-font contact-shell__title">Connect with Daniel Jang</h1>
+            </header>
+
+            <div class="contact-chat" aria-label="Contact methods">
+                <div class="chat-bubble chat-bubble--left" data-chat-bubble>
+                    <span class="chat-label">you</span>
+                    <p>How can I reach you?</p>
+                </div>
+                <div class="chat-bubble chat-bubble--right" data-chat-bubble>
+                    <span class="chat-label">daniel</span>
+                    <p>Email works best for introductions and opportunities.</p>
+                </div>
+                <div class="chat-bubble chat-bubble--left" data-chat-bubble>
+                    <span class="chat-label">you</span>
+                    <p>What’s your email?</p>
+                </div>
+                <div class="chat-bubble chat-bubble--right" data-chat-bubble>
+                    <span class="chat-label">daniel</span>
+                    <p><a href="mailto:d2jang@uwaterloo.ca">d2jang@uwaterloo.ca</a></p>
+                </div>
+                <div class="chat-bubble chat-bubble--left" data-chat-bubble>
+                    <span class="chat-label">you</span>
+                    <p>Socials?</p>
+                </div>
+                <div class="chat-bubble chat-bubble--right" data-chat-bubble>
+                    <span class="chat-label">daniel</span>
+                    <ul class="chat-list chat-list--plain">
+                        <li><a href="https://www.linkedin.com/in/daniel-jang197" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+                        <li><a href="https://www.instagram.com/dj_jang197/" target="_blank" rel="noopener noreferrer">Instagram</a> (private)</li>
+                        <li><a href="https://github.com/DJ-jang197" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+                    </ul>
+                </div>
+                <div class="chat-bubble chat-bubble--left" data-chat-bubble>
+                    <span class="chat-label">you</span>
+                    <p>Anything else?</p>
+                </div>
+                <div class="chat-bubble chat-bubble--right" data-chat-bubble>
+                    <span class="chat-label">daniel</span>
+                    <p>Other contact methods on request.</p>
+                </div>
+            </div>
         </div>
-        <figure class="hover-caption-wrap about-image-wrap">
-            <img src="../images/Anteloupe.jpg" alt="Daniel Jang Contact Picture" class="about-images">
-            <figcaption class="image-caption">Anteloupe Canyon - one of my favorite photos ever (July 2023)</figcaption>
-        </figure>
-    </section>
+    </main>
+
     <footer>
         <p>2 Corinthians 5:7 NIV - For we live by faith, not by sight.</p>
         <p>&copy; 2026 Daniel Jang. All rights reserved.</p>

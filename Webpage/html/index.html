@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Rubik+Wet+Paint&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Monoton&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/Webpage_Home.css">
     <title>Daniel Jang</title>
 </head>
@@ -23,23 +23,27 @@
     </nav>
 
     <section id="hero" class="hero" aria-label="Introduction">
-        <div class="hero-parallax" data-hero-parallax>
-            <div class="hero-bg" role="img" aria-label="Field landscape with power lines"></div>
-            <div class="hero-purple-wash" aria-hidden="true"></div>
-        </div>
-        <div class="hero-content">
-            <p class="hero-kicker">Computer Science @ Waterloo · Co-op</p>
-            <div class="hero-nameplate" aria-label="Daniel Jang">
-                <span class="hero-line hero-daniel">DANIEL</span>
-                <span class="hero-line hero-jang">JANG</span>
+        <div class="hero-stack">
+            <div class="hero-backdrop" data-hero-parallax>
+                <img class="hero-full-image photo-crisp" src="../images/hero-field.png" alt="" decoding="async" fetchpriority="high">
+                <div class="hero-purple-veil" aria-hidden="true"></div>
             </div>
-            <p class="hero-tag">“What could possibly go wrong?”</p>
-            <div class="hero-cta">
-                <a class="btn-neon" href="../docs/Daniel_Jang_Resume.pdf" target="_blank" rel="noopener">Résumé</a>
-                <a class="btn-neon btn-neon--ghost" href="#about">Enter</a>
+            <div class="hero-ui">
+                <div class="hero-content">
+                    <p class="hero-kicker">Computer Science @ Waterloo · Co-op</p>
+                    <div class="hero-nameplate" aria-label="Daniel Jang">
+                        <span class="hero-line hero-daniel">DANIEL</span>
+                        <span class="hero-line hero-jang">JANG</span>
+                    </div>
+                    <p class="hero-quote-neon">WHAT COULD POSSIBLY GO WRONG</p>
+                    <div class="hero-cta">
+                        <a class="btn-neon" href="../docs/Daniel_Jang_Resume.pdf" target="_blank" rel="noopener">Résumé</a>
+                        <a class="btn-neon btn-neon--ghost" href="#about">Enter</a>
+                    </div>
+                </div>
+                <a class="hero-scroll-hint" href="#about">Scroll</a>
             </div>
         </div>
-        <a class="hero-scroll-hint" href="#about">Scroll</a>
     </section>
 
     <section id="about" class="about-chat" aria-labelledby="about-heading">
@@ -76,15 +80,15 @@
             </div>
             <div class="about-gallery" data-chat-bubble>
                 <figure class="about-shot">
-                    <img src="../images/LD_Perm.jpg" alt="Daniel at work as a Tech Specialist" width="640" height="800" loading="lazy">
+                    <img class="photo-crisp" src="../images/LD_Perm.jpg" alt="Daniel at work as a Tech Specialist" loading="lazy">
                     <figcaption>Tech Specialist shift (Feb 2025)</figcaption>
                 </figure>
                 <figure class="about-shot">
-                    <img src="../images/Family_Canyon.jpg" alt="Family at Antelope Canyon" width="640" height="800" loading="lazy">
+                    <img class="photo-crisp" src="../images/Family_Canyon.jpg" alt="Family at Antelope Canyon" loading="lazy">
                     <figcaption>Antelope Canyon with family (July 2023)</figcaption>
                 </figure>
                 <figure class="about-shot">
-                    <img src="../images/Waterloo_Snow.jpg" alt="University of Waterloo in winter" width="640" height="800" loading="lazy">
+                    <img class="photo-crisp" src="../images/Waterloo_Snow.jpg" alt="University of Waterloo in winter" loading="lazy">
                     <figcaption>Waterloo winter (Dec 2025)</figcaption>
                 </figure>
             </div>
@@ -109,14 +113,54 @@
         <div class="projects-banner" aria-hidden="true"></div>
         <div class="projects-body">
             <h2 id="projects-heading" class="projects-title">PROJECTS</h2>
+            <p class="projects-hint">Tap a platter or click — drag in a circle on <strong>‹</strong> for previous and <strong>›</strong> for next project.</p>
             <div class="mixer-wrap" data-mixer>
-                <div class="mixer-frame">
-                    <img class="mixer-img" src="../images/projects-mixer-reference.png" alt="DJ controller reference" width="900" height="1200" loading="lazy">
-                    <div class="jog jog-left" data-jog="prev" role="button" tabindex="0" aria-label="Previous project — spin left platter">
-                        <span class="jog-platter" data-platter="left" aria-hidden="true"></span>
+                <div class="dj-console" aria-label="Interactive decks — spin platters to change project">
+                    <div class="dj-console__lights" aria-hidden="true">
+                        <span class="dj-led dj-led--cyan"></span>
+                        <span class="dj-led dj-led--pink"></span>
+                        <span class="dj-led dj-led--lime"></span>
                     </div>
-                    <div class="jog jog-right" data-jog="next" role="button" tabindex="0" aria-label="Next project — spin right platter">
-                        <span class="jog-platter" data-platter="right" aria-hidden="true"></span>
+                    <div class="dj-console__decks">
+                        <div class="dj-deck dj-deck--left">
+                            <button type="button" class="dj-jog" data-jog="prev" aria-label="Previous project — spin left platter">
+                                <span class="dj-jog-platter"><span class="dj-jog-arrow" aria-hidden="true">‹</span></span>
+                            </button>
+                            <div class="dj-pad-row" aria-hidden="true">
+                                <span class="dj-pad"></span><span class="dj-pad"></span><span class="dj-pad"></span><span class="dj-pad"></span>
+                            </div>
+                            <div class="dj-transport" aria-hidden="true">
+                                <span class="dj-btn dj-btn--sync">SYNC</span>
+                                <span class="dj-btn dj-btn--cue">CUE</span>
+                                <span class="dj-btn dj-btn--play">▶</span>
+                            </div>
+                        </div>
+                        <div class="dj-rail" aria-hidden="true">
+                            <div class="dj-knob-col">
+                                <span class="dj-knob"></span><span class="dj-knob"></span><span class="dj-knob"></span><span class="dj-knob"></span>
+                            </div>
+                            <span class="dj-browse"></span>
+                            <div class="dj-phones-row">
+                                <span class="dj-phone-btn"></span><span class="dj-phone-btn"></span>
+                            </div>
+                            <div class="dj-faders">
+                                <span class="dj-fader"></span><span class="dj-fader"></span>
+                            </div>
+                            <div class="dj-crossfader"></div>
+                        </div>
+                        <div class="dj-deck dj-deck--right">
+                            <button type="button" class="dj-jog" data-jog="next" aria-label="Next project — spin right platter">
+                                <span class="dj-jog-platter"><span class="dj-jog-arrow" aria-hidden="true">›</span></span>
+                            </button>
+                            <div class="dj-pad-row" aria-hidden="true">
+                                <span class="dj-pad"></span><span class="dj-pad"></span><span class="dj-pad"></span><span class="dj-pad"></span>
+                            </div>
+                            <div class="dj-transport" aria-hidden="true">
+                                <span class="dj-btn dj-btn--sync">SYNC</span>
+                                <span class="dj-btn dj-btn--cue">CUE</span>
+                                <span class="dj-btn dj-btn--play">▶</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <article class="project-spotlight" data-project-card aria-live="polite">
