@@ -27,7 +27,19 @@
     <nav class="site-nav" aria-label="Primary">
         <div class="nav-inner">
             <div class="nav-start">
-                <a class="nav-brand" href="index.html#hero">DJ</a>
+                <a class="nav-brand" href="index.html#hero" aria-label="Daniel Jang — Home">
+                    <svg class="nav-brand__svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 90" width="200" height="75" aria-hidden="true" focusable="false">
+                        <g class="nav-brand__phones">
+                            <rect x="16" y="29" width="44" height="60" rx="17" ry="17" />
+                            <rect x="180" y="29" width="44" height="60" rx="17" ry="17" />
+                            <rect class="nav-brand__cup-inner" x="25" y="40" width="26" height="38" rx="9" ry="9" />
+                            <rect class="nav-brand__cup-inner" x="189" y="40" width="26" height="38" rx="9" ry="9" />
+                            <path d="M 60 31 C 60 13 87 5 120 5 C 153 5 180 13 180 31" />
+                            <path class="nav-brand__headband-pads" d="M 64 34 C 64 19 90 12 120 12 C 150 12 176 19 176 34" />
+                        </g>
+                        <text class="nav-brand__mark" x="120" y="62" text-anchor="middle">DJ</text>
+                    </svg>
+                </a>
             </div>
             <ul class="nav-links">
                 <li><a href="index.html#hero">Home</a></li>
@@ -39,42 +51,47 @@
         </div>
     </nav>
 
-    <main class="contact-shell">
-        <div class="contact-shell__inner">
-            <header class="contact-shell__header">
-                <h1 class="contact-shell__title" data-typewriter-text="Connect with Daniel Jang"></h1>
-                <p class="contact-shell__lede">Reach out through any of the channels below.</p>
-            </header>
+    <div class="page-backdrop">
+        <div class="backdrop-gallery backdrop-gallery--contact" data-backdrop-root aria-hidden="true"></div>
+        <div class="page-backdrop__content">
+            <main class="contact-shell site-glass-panel">
+                <div class="contact-shell__inner">
+                    <header class="contact-shell__header">
+                        <h1 class="contact-shell__title" data-typewriter-text="Connect with Daniel Jang"></h1>
+                        <p class="contact-shell__lede">Reach out through any of the channels below.</p>
+                    </header>
 
-            <section class="contact-panel" data-reveal aria-label="Contact methods">
-                <ul class="contact-panel__list">
-                    <li class="contact-panel__item">
-                        <span class="contact-panel__label">Email (preferred)</span>
-                        <a class="contact-panel__value" href="mailto:d2jang@uwaterloo.ca">d2jang@uwaterloo.ca</a>
-                    </li>
-                    <li class="contact-panel__item">
-                        <span class="contact-panel__label">LinkedIn</span>
-                        <a class="contact-panel__value" href="https://www.linkedin.com/in/daniel-jang197" target="_blank" rel="noopener noreferrer">Daniel Jang</a>
-                    </li>
-                    <li class="contact-panel__item">
-                        <span class="contact-panel__label">Instagram</span>
-                        <a class="contact-panel__value" href="https://www.instagram.com/dj_jang197/" target="_blank" rel="noopener noreferrer">@dj_jang197</a>
-                        <span class="contact-panel__note">Private account</span>
-                    </li>
-                    <li class="contact-panel__item">
-                        <span class="contact-panel__label">GitHub</span>
-                        <a class="contact-panel__value" href="https://github.com/DJ-jang197" target="_blank" rel="noopener noreferrer">DJ-jang197</a>
-                    </li>
-                </ul>
-                <p class="contact-panel__footer">Other contact methods available on request.</p>
-            </section>
+                    <section class="contact-panel" data-reveal aria-label="Contact methods">
+                        <ul class="contact-panel__list">
+                            <li class="contact-panel__item">
+                                <span class="contact-panel__label">Email (preferred)</span>
+                                <a class="contact-panel__value" href="mailto:d2jang@uwaterloo.ca">d2jang@uwaterloo.ca</a>
+                            </li>
+                            <li class="contact-panel__item">
+                                <span class="contact-panel__label">LinkedIn</span>
+                                <a class="contact-panel__value" href="https://www.linkedin.com/in/daniel-jang197" target="_blank" rel="noopener noreferrer">Daniel Jang</a>
+                            </li>
+                            <li class="contact-panel__item">
+                                <span class="contact-panel__label">Instagram</span>
+                                <a class="contact-panel__value" href="https://www.instagram.com/dj_jang197/" target="_blank" rel="noopener noreferrer">@dj_jang197</a>
+                                <span class="contact-panel__note">Private account</span>
+                            </li>
+                            <li class="contact-panel__item">
+                                <span class="contact-panel__label">GitHub</span>
+                                <a class="contact-panel__value" href="https://github.com/DJ-jang197" target="_blank" rel="noopener noreferrer">DJ-jang197</a>
+                            </li>
+                        </ul>
+                        <p class="contact-panel__footer">Other contact methods available on request.</p>
+                    </section>
+                </div>
+            </main>
+
+            <footer class="site-footer">
+                <p>2 Corinthians 5:7 NIV — For we live by faith, not by sight.</p>
+                <p>&copy; 2026 Daniel Jang. All rights reserved.</p>
+            </footer>
         </div>
-    </main>
-
-    <footer class="site-footer">
-        <p>2 Corinthians 5:7 NIV — For we live by faith, not by sight.</p>
-        <p>&copy; 2026 Daniel Jang. All rights reserved.</p>
-    </footer>
+    </div>
     <script src="../js/Webpage_Main.js"></script>
 </body>
 </html>

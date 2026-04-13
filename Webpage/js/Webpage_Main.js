@@ -1,5 +1,124 @@
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+/** Virtual start time (ms): shared timeline across navigations (do not overwrite from pagehide — WAAPI currentTime is often 0 during teardown). */
+const BACKDROP_MARQUEE_T0_KEY = "backdropMarqueeT0";
+
+const BACKDROP_SLIDE_FILES = [
+    "Anteloupe.jpg",
+    "Balloons.jpg",
+    "CN_Tower_Stance.jpg",
+    "Costco_Field.jpg",
+    "Family_Canyon.jpg",
+    "Gala.jpg",
+    "Greendrop_Stance.jpg",
+    "hero-field.png",
+    "Island.jpg",
+    "Korean_Field.jpg",
+    "SJU_Mirror.jpg",
+    "TorontoRink.jpg",
+    "Victoria_Stance.jpg",
+    "Waterloo_Park_Buildings.jpg",
+    "Waterloo_Snow.jpg",
+];
+
+function parseCssTimeMs(value) {
+    if (!value || value === "0s") {
+        return 0;
+    }
+    const s = String(value).trim();
+    const n = parseFloat(s);
+    if (Number.isNaN(n)) {
+        return 0;
+    }
+    if (s.endsWith("ms")) {
+        return n;
+    }
+    return n * 1000;
+}
+
+function buildBackdropTrackHTML() {
+    const basePath = "../images/";
+    const oneSet = BACKDROP_SLIDE_FILES.map(
+        (name) =>
+            `<div class="backdrop-gallery__slide" style="background-image: url('${basePath}${encodeURI(name)}');"></div>`
+    ).join("");
+    return `<div class="backdrop-gallery__track">${oneSet}${oneSet}</div>`;
+}
+
+function populateBackdropGalleries() {
+    document.querySelectorAll("[data-backdrop-root]").forEach((root) => {
+        if (root.querySelector(".backdrop-gallery__track")) {
+            return;
+        }
+        root.insertAdjacentHTML("beforeend", buildBackdropTrackHTML());
+    });
+}
+
+function syncBackdropMarqueeTiming(track) {
+    if (prefersReducedMotion || !track) {
+        return;
+    }
+    const durationMs = parseCssTimeMs(getComputedStyle(track).animationDuration);
+    if (!durationMs) {
+        return;
+    }
+
+    let t0Str;
+    try {
+        t0Str = sessionStorage.getItem(BACKDROP_MARQUEE_T0_KEY);
+    } catch (_) {
+        return;
+    }
+
+    let t0;
+    if (t0Str == null || t0Str === "") {
+        const skew = Math.floor(Math.random() * durationMs);
+        t0 = Date.now() - skew;
+        try {
+            sessionStorage.setItem(BACKDROP_MARQUEE_T0_KEY, String(t0));
+        } catch (_) {}
+    } else {
+        t0 = Number(t0Str);
+        if (!Number.isFinite(t0)) {
+            const skew = Math.floor(Math.random() * durationMs);
+            t0 = Date.now() - skew;
+            try {
+                sessionStorage.setItem(BACKDROP_MARQUEE_T0_KEY, String(t0));
+            } catch (_) {}
+        }
+    }
+
+    const elapsed = Date.now() - t0;
+    track.style.animationDelay = `${-(elapsed % durationMs)}ms`;
+}
+
+function setupBackdropMarquee() {
+    if (prefersReducedMotion) {
+        return;
+    }
+
+    const applyTiming = () => {
+        const track = document.querySelector(".backdrop-gallery__track");
+        syncBackdropMarqueeTiming(track);
+    };
+
+    window.addEventListener("pageshow", (ev) => {
+        if (ev.persisted) {
+            requestAnimationFrame(applyTiming);
+        }
+    });
+
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            applyTiming();
+            const track = document.querySelector(".backdrop-gallery__track");
+            if (track && !parseCssTimeMs(getComputedStyle(track).animationDuration)) {
+                requestAnimationFrame(applyTiming);
+            }
+        });
+    });
+}
+
 function getPreferredTheme() {
     try {
         const storedTheme = localStorage.getItem("site-theme");
@@ -562,7 +681,9 @@ function setupDjMixerProjects() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+    populateBackdropGalleries();
     applyTheme(getPreferredTheme());
+    setupBackdropMarquee();
 
     const nav = document.querySelector("nav");
     createNavSocialLinks(nav);

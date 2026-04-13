@@ -26,7 +26,19 @@
     <nav class="site-nav" aria-label="Primary">
         <div class="nav-inner">
             <div class="nav-start">
-                <a class="nav-brand" href="index.html#hero">DJ</a>
+                <a class="nav-brand" href="index.html#hero" aria-label="Daniel Jang — Home">
+                    <svg class="nav-brand__svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 90" width="200" height="75" aria-hidden="true" focusable="false">
+                        <g class="nav-brand__phones">
+                            <rect x="16" y="29" width="44" height="60" rx="17" ry="17" />
+                            <rect x="180" y="29" width="44" height="60" rx="17" ry="17" />
+                            <rect class="nav-brand__cup-inner" x="25" y="40" width="26" height="38" rx="9" ry="9" />
+                            <rect class="nav-brand__cup-inner" x="189" y="40" width="26" height="38" rx="9" ry="9" />
+                            <path d="M 60 31 C 60 13 87 5 120 5 C 153 5 180 13 180 31" />
+                            <path class="nav-brand__headband-pads" d="M 64 34 C 64 19 90 12 120 12 C 150 12 176 19 176 34" />
+                        </g>
+                        <text class="nav-brand__mark" x="120" y="62" text-anchor="middle">DJ</text>
+                    </svg>
+                </a>
             </div>
             <ul class="nav-links">
                 <li><a href="index.html#hero">Home</a></li>
@@ -39,55 +51,24 @@
     </nav>
 
     <div class="page-backdrop">
-        <div class="backdrop-gallery backdrop-gallery--about" aria-hidden="true">
-            <div class="backdrop-gallery__track">
-                <div class="backdrop-gallery__slide" style="background-image: url('../images/Anteloupe.jpg');"></div>
-                <div class="backdrop-gallery__slide" style="background-image: url('../images/Balloons.jpg');"></div>
-                <div class="backdrop-gallery__slide" style="background-image: url('../images/CN_Tower_Stance.jpg');"></div>
-                <div class="backdrop-gallery__slide" style="background-image: url('../images/Costco_Field.jpg');"></div>
-                <div class="backdrop-gallery__slide" style="background-image: url('../images/Family_Canyon.jpg');"></div>
-                <div class="backdrop-gallery__slide" style="background-image: url('../images/Gala.jpg');"></div>
-                <div class="backdrop-gallery__slide" style="background-image: url('../images/Greendrop_Stance.jpg');"></div>
-                <div class="backdrop-gallery__slide" style="background-image: url('../images/hero-field.png');"></div>
-                <div class="backdrop-gallery__slide" style="background-image: url('../images/Island.jpg');"></div>
-                <div class="backdrop-gallery__slide" style="background-image: url('../images/Korean_Field.jpg');"></div>
-                <div class="backdrop-gallery__slide" style="background-image: url('../images/SJU_Mirror.jpg');"></div>
-                <div class="backdrop-gallery__slide" style="background-image: url('../images/TorontoRink.jpg');"></div>
-                <div class="backdrop-gallery__slide" style="background-image: url('../images/Victoria_Stance.jpg');"></div>
-                <div class="backdrop-gallery__slide" style="background-image: url('../images/Waterloo_Park_Buildings.jpg');"></div>
-                <div class="backdrop-gallery__slide" style="background-image: url('../images/Waterloo_Snow.jpg');"></div>
-                <div class="backdrop-gallery__slide" style="background-image: url('../images/Anteloupe.jpg');"></div>
-                <div class="backdrop-gallery__slide" style="background-image: url('../images/Balloons.jpg');"></div>
-                <div class="backdrop-gallery__slide" style="background-image: url('../images/CN_Tower_Stance.jpg');"></div>
-                <div class="backdrop-gallery__slide" style="background-image: url('../images/Costco_Field.jpg');"></div>
-                <div class="backdrop-gallery__slide" style="background-image: url('../images/Family_Canyon.jpg');"></div>
-                <div class="backdrop-gallery__slide" style="background-image: url('../images/Gala.jpg');"></div>
-                <div class="backdrop-gallery__slide" style="background-image: url('../images/Greendrop_Stance.jpg');"></div>
-                <div class="backdrop-gallery__slide" style="background-image: url('../images/hero-field.png');"></div>
-                <div class="backdrop-gallery__slide" style="background-image: url('../images/Island.jpg');"></div>
-                <div class="backdrop-gallery__slide" style="background-image: url('../images/Korean_Field.jpg');"></div>
-                <div class="backdrop-gallery__slide" style="background-image: url('../images/SJU_Mirror.jpg');"></div>
-                <div class="backdrop-gallery__slide" style="background-image: url('../images/TorontoRink.jpg');"></div>
-                <div class="backdrop-gallery__slide" style="background-image: url('../images/Victoria_Stance.jpg');"></div>
-                <div class="backdrop-gallery__slide" style="background-image: url('../images/Waterloo_Park_Buildings.jpg');"></div>
-                <div class="backdrop-gallery__slide" style="background-image: url('../images/Waterloo_Snow.jpg');"></div>
-            </div>
-        </div>
+        <div class="backdrop-gallery backdrop-gallery--about" data-backdrop-root aria-hidden="true"></div>
         <div class="page-backdrop__content">
     <main class="about-main">
-        <h1 class="about-page-title reveal-on-scroll" data-typewriter-text="Who is Daniel Jang?"></h1>
-
-        <section class="about-chat" aria-label="About">
-            <div class="chat-bubble chat-bubble--right reveal-on-scroll">
-                <p>My aspiration is to become a software engineer who can build meaningful products that improve people's lives. I am passionate about using technology to solve real-world problems and create positive change in society. Through my studies and projects, I aim to develop the technical skills and creative mindset needed to contribute to innovative solutions that make a difference.</p>
+        <section class="about-chat about-chat--dj site-glass-panel" aria-label="About">
+            <h1 class="about-page-title about-page-title--in-panel reveal-on-scroll" data-typewriter-text="Who is Daniel Jang?"></h1>
+            <div class="chat-bubble chat-bubble--left reveal-on-scroll">
+                <p>I am studying Computer Science at Waterloo with a focus on cybersecurity, driven by the belief that as technology becomes more accessible, the need for secure, thoughtful systems grows. I also have a strong interest in software development and data science.</p>
+                <p>I thrive in collaborative environments and am motivated by challenges that require both technical expertise and creative problem-solving.</p>
             </div>
-            <div class="chat-bubble chat-bubble--right reveal-on-scroll">
-                <ul class="chat-list">
-                    <li>Currently studying Computer Science at the University of Waterloo.</li>
-                    <li>Interested in software development, web technologies, and artificial intelligence.</li>
-                    <li>Enjoys collaborating on team projects and learning new programming languages.</li>
-                    <li>Outside of coding, I enjoy music, photography, and exploring new places.</li>
-                </ul>
+
+            <div class="about-vibes reveal-on-scroll">
+                <p class="about-vibes__label">Check out my vibes:</p>
+                <a class="btn-deck btn-deck--icon" href="https://open.spotify.com/user/31x6uadymxfzvubcd6uhwyifkrmu" target="_blank" rel="noopener noreferrer">
+                    <svg class="btn-deck__icon btn-deck__icon--spotify" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <path fill="currentColor" d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+                    </svg>
+                    <span>SPOTIFY</span>
+                </a>
             </div>
 
             <aside class="fun-facts-aside reveal-on-scroll" id="fun-facts-sidebar" aria-labelledby="toggle-facts">

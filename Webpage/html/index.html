@@ -26,7 +26,19 @@
     <nav class="site-nav" aria-label="Primary">
         <div class="nav-inner">
             <div class="nav-start">
-                <a class="nav-brand" href="#hero">DJ</a>
+                <a class="nav-brand" href="#hero" aria-label="Daniel Jang — Home">
+                    <svg class="nav-brand__svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 90" width="200" height="75" aria-hidden="true" focusable="false">
+                        <g class="nav-brand__phones">
+                            <rect x="16" y="29" width="44" height="60" rx="17" ry="17" />
+                            <rect x="180" y="29" width="44" height="60" rx="17" ry="17" />
+                            <rect class="nav-brand__cup-inner" x="25" y="40" width="26" height="38" rx="9" ry="9" />
+                            <rect class="nav-brand__cup-inner" x="189" y="40" width="26" height="38" rx="9" ry="9" />
+                            <path d="M 60 31 C 60 13 87 5 120 5 C 153 5 180 13 180 31" />
+                            <path class="nav-brand__headband-pads" d="M 64 34 C 64 19 90 12 120 12 C 150 12 176 19 176 34" />
+                        </g>
+                        <text class="nav-brand__mark" x="120" y="62" text-anchor="middle">DJ</text>
+                    </svg>
+                </a>
             </div>
             <ul class="nav-links">
                 <li><a href="#hero" aria-current="page">Home</a></li>
@@ -39,42 +51,10 @@
     </nav>
 
     <div class="home-page-wrap">
-        <div class="backdrop-gallery backdrop-gallery--home" aria-hidden="true">
-            <div class="backdrop-gallery__track">
-                <div class="backdrop-gallery__slide" style="background-image: url('../images/Anteloupe.jpg');"></div>
-                <div class="backdrop-gallery__slide" style="background-image: url('../images/Balloons.jpg');"></div>
-                <div class="backdrop-gallery__slide" style="background-image: url('../images/CN_Tower_Stance.jpg');"></div>
-                <div class="backdrop-gallery__slide" style="background-image: url('../images/Costco_Field.jpg');"></div>
-                <div class="backdrop-gallery__slide" style="background-image: url('../images/Family_Canyon.jpg');"></div>
-                <div class="backdrop-gallery__slide" style="background-image: url('../images/Gala.jpg');"></div>
-                <div class="backdrop-gallery__slide" style="background-image: url('../images/Greendrop_Stance.jpg');"></div>
-                <div class="backdrop-gallery__slide" style="background-image: url('../images/hero-field.png');"></div>
-                <div class="backdrop-gallery__slide" style="background-image: url('../images/Island.jpg');"></div>
-                <div class="backdrop-gallery__slide" style="background-image: url('../images/Korean_Field.jpg');"></div>
-                <div class="backdrop-gallery__slide" style="background-image: url('../images/SJU_Mirror.jpg');"></div>
-                <div class="backdrop-gallery__slide" style="background-image: url('../images/TorontoRink.jpg');"></div>
-                <div class="backdrop-gallery__slide" style="background-image: url('../images/Victoria_Stance.jpg');"></div>
-                <div class="backdrop-gallery__slide" style="background-image: url('../images/Waterloo_Park_Buildings.jpg');"></div>
-                <div class="backdrop-gallery__slide" style="background-image: url('../images/Waterloo_Snow.jpg');"></div>
-                <div class="backdrop-gallery__slide" style="background-image: url('../images/Anteloupe.jpg');"></div>
-                <div class="backdrop-gallery__slide" style="background-image: url('../images/Balloons.jpg');"></div>
-                <div class="backdrop-gallery__slide" style="background-image: url('../images/CN_Tower_Stance.jpg');"></div>
-                <div class="backdrop-gallery__slide" style="background-image: url('../images/Costco_Field.jpg');"></div>
-                <div class="backdrop-gallery__slide" style="background-image: url('../images/Family_Canyon.jpg');"></div>
-                <div class="backdrop-gallery__slide" style="background-image: url('../images/Gala.jpg');"></div>
-                <div class="backdrop-gallery__slide" style="background-image: url('../images/Greendrop_Stance.jpg');"></div>
-                <div class="backdrop-gallery__slide" style="background-image: url('../images/hero-field.png');"></div>
-                <div class="backdrop-gallery__slide" style="background-image: url('../images/Island.jpg');"></div>
-                <div class="backdrop-gallery__slide" style="background-image: url('../images/Korean_Field.jpg');"></div>
-                <div class="backdrop-gallery__slide" style="background-image: url('../images/SJU_Mirror.jpg');"></div>
-                <div class="backdrop-gallery__slide" style="background-image: url('../images/TorontoRink.jpg');"></div>
-                <div class="backdrop-gallery__slide" style="background-image: url('../images/Victoria_Stance.jpg');"></div>
-                <div class="backdrop-gallery__slide" style="background-image: url('../images/Waterloo_Park_Buildings.jpg');"></div>
-                <div class="backdrop-gallery__slide" style="background-image: url('../images/Waterloo_Snow.jpg');"></div>
-            </div>
-        </div>
+        <div class="backdrop-gallery backdrop-gallery--home" data-backdrop-root aria-hidden="true"></div>
         <div class="home-page-inner">
 
+    <div class="site-glass-panel site-glass-panel--home">
     <section id="hero" class="hero" aria-label="Introduction">
         <div class="hero-stack">
             <div class="hero-ui">
@@ -89,10 +69,38 @@
                     <div class="hero-cta hero-cta--single">
                         <a class="btn-deck" href="../docs/Daniel_Jang_Resume.pdf" target="_blank" rel="noopener">RÉSUMÉ</a>
                     </div>
+                    <div class="home-deck-strip" role="presentation" aria-hidden="true">
+                        <span class="home-deck-strip__cue">CUE</span>
+                        <div class="home-deck-strip__meters">
+                            <span class="home-deck-strip__meter"></span>
+                            <span class="home-deck-strip__meter"></span>
+                            <span class="home-deck-strip__meter"></span>
+                            <span class="home-deck-strip__meter"></span>
+                            <span class="home-deck-strip__meter"></span>
+                            <span class="home-deck-strip__meter"></span>
+                            <span class="home-deck-strip__meter"></span>
+                            <span class="home-deck-strip__meter"></span>
+                            <span class="home-deck-strip__meter"></span>
+                            <span class="home-deck-strip__meter"></span>
+                            <span class="home-deck-strip__meter"></span>
+                            <span class="home-deck-strip__meter"></span>
+                            <span class="home-deck-strip__meter"></span>
+                            <span class="home-deck-strip__meter"></span>
+                            <span class="home-deck-strip__meter"></span>
+                            <span class="home-deck-strip__meter"></span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
+
+    <section class="home-below-hero reveal-on-scroll" aria-label="Explore the site">
+        <h2 class="home-nav-hint__title">Explore the site</h2>
+        <p class="home-nav-hint__text">Use the <strong>nav bar</strong> at the top to open <a href="Webpage_About.html">About</a>, <a href="Webpage_Projects.html">Projects</a>, and <a href="Webpage_Contact.html">Contact</a>.</p>
+        <p class="home-langs">Comfortable with Java, Python, C, C++, JavaScript, TypeScript, React, Dart, HTML/CSS, and SQL.</p>
+    </section>
+    </div>
 
     <footer class="site-footer">
         <p>2 Corinthians 5:7 NIV — For we live by faith, not by sight.</p>

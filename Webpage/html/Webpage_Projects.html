@@ -26,7 +26,19 @@
     <nav class="site-nav" aria-label="Primary">
         <div class="nav-inner">
             <div class="nav-start">
-                <a class="nav-brand" href="index.html#hero">DJ</a>
+                <a class="nav-brand" href="index.html#hero" aria-label="Daniel Jang — Home">
+                    <svg class="nav-brand__svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 90" width="200" height="75" aria-hidden="true" focusable="false">
+                        <g class="nav-brand__phones">
+                            <rect x="16" y="29" width="44" height="60" rx="17" ry="17" />
+                            <rect x="180" y="29" width="44" height="60" rx="17" ry="17" />
+                            <rect class="nav-brand__cup-inner" x="25" y="40" width="26" height="38" rx="9" ry="9" />
+                            <rect class="nav-brand__cup-inner" x="189" y="40" width="26" height="38" rx="9" ry="9" />
+                            <path d="M 60 31 C 60 13 87 5 120 5 C 153 5 180 13 180 31" />
+                            <path class="nav-brand__headband-pads" d="M 64 34 C 64 19 90 12 120 12 C 150 12 176 19 176 34" />
+                        </g>
+                        <text class="nav-brand__mark" x="120" y="62" text-anchor="middle">DJ</text>
+                    </svg>
+                </a>
             </div>
             <ul class="nav-links">
                 <li><a href="index.html#hero">Home</a></li>
@@ -39,13 +51,14 @@
     </nav>
 
     <div class="home-page-wrap">
+        <div class="backdrop-gallery backdrop-gallery--projects" data-backdrop-root aria-hidden="true"></div>
         <div class="home-page-inner">
 
-    <section id="projects" class="projects-deck reveal-on-scroll" aria-labelledby="projects-heading">
-        <div class="projects-body">
-            <h2 id="projects-heading" class="projects-title">PROJECTS</h2>
+    <section id="projects" class="projects-deck" aria-labelledby="projects-heading">
+        <div class="projects-body site-glass-panel site-glass-panel--projects">
+            <h2 id="projects-heading" class="projects-title" data-typewriter-text="PROJECTS"></h2>
             <p class="projects-hint">Tap a pad or platter — drag in a circle on <strong>‹</strong> for previous and <strong>›</strong> for next.</p>
-            <div class="mixer-wrap" data-mixer>
+            <div class="mixer-wrap reveal-on-scroll" data-mixer>
                 <div class="dj-console dj-console--pro" aria-label="Interactive decks — spin platters to change project">
                     <div class="dj-console__top-bar" aria-hidden="true">
                         <span class="dj-console__badge">CH-A</span>
