@@ -1,0 +1,12 @@
+/* Codex-comment-header: Styles and visual behavior for this file. */
+body {
+    background-color: #ffee8c
+}
+
+header {
+    font-family: "Times New Roman", serif;
+    text-align: center;
+    font-size: 36px;
+    color: #513B20
+}
+
