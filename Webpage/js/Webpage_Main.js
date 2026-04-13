@@ -1,6 +1,6 @@
-const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+﻿const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-/** Virtual start time (ms): shared timeline across navigations (do not overwrite from pagehide — WAAPI currentTime is often 0 during teardown). */
+/** Virtual start time (ms): shared timeline across navigations (do not overwrite from pagehide â€” WAAPI currentTime is often 0 during teardown). */
 const BACKDROP_MARQUEE_T0_KEY = "backdropMarqueeT0";
 
 const BACKDROP_SLIDE_FILES = [
@@ -135,10 +135,38 @@ function applyTheme(theme) {
     } else {
         document.documentElement.removeAttribute("data-theme");
     }
+    updateNavBrandLogo(theme);
+}
+
+function updateNavBrandLogo(theme) {
+    const img = document.querySelector(".nav-brand__img");
+    if (!(img instanceof HTMLImageElement)) {
+        return;
+    }
+    const desired = theme === "dark" ? "../images/logo-dj-mark.png" : "../images/logo-dj-mark-light.png";
+    if (img.getAttribute("src") !== desired) {
+        img.setAttribute("src", desired);
+    }
 }
 
 function createThemeToggle(nav) {
-    if (!nav || nav.querySelector(".theme-toggle")) {
+    if (!nav) {
+        return;
+    }
+
+    const existing = nav.querySelector(".theme-toggle");
+    if (existing instanceof HTMLButtonElement) {
+        if (existing.dataset.themeBound === "true") {
+            return;
+        }
+        existing.addEventListener("click", () => {
+            const nextTheme = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+            applyTheme(nextTheme);
+            try {
+                localStorage.setItem("site-theme", nextTheme);
+            } catch (_) {}
+        });
+        existing.dataset.themeBound = "true";
         return;
     }
 
@@ -164,6 +192,7 @@ function createThemeToggle(nav) {
             localStorage.setItem("site-theme", nextTheme);
         } catch (_) {}
     });
+    toggleButton.dataset.themeBound = "true";
 
     if (document.body.classList.contains("site-redesign")) {
         const inner = nav.querySelector(".nav-inner");
@@ -707,6 +736,39 @@ function setupDjMixerProjects() {
     render();
 }
 
+function setupHomeVuControls() {
+    const controls = document.querySelector("[data-home-vu-controls]");
+    const strip = document.querySelector(".home-deck-strip");
+    const slider = document.querySelector("[data-home-vu-slider]");
+    const bpmOut = document.querySelector("[data-home-vu-bpm]");
+    const caption = document.querySelector("[data-home-vu-caption]");
+    if (!controls || !strip || !(slider instanceof HTMLInputElement) || !bpmOut || !caption) {
+        return;
+    }
+
+    const describe = (bpm) => {
+        if (bpm <= 55) return "Trance / near-sleep";
+        if (bpm <= 68) return "Deeply calming";
+        if (bpm <= 80) return "Relaxed & meditative (matches heart rate)";
+        if (bpm <= 100) return "Natural & neutral";
+        if (bpm <= 115) return "Gentle focus & warmth";
+        if (bpm <= 130) return "Uplifting & engaged";
+        if (bpm <= 145) return "Energized & motivated";
+        if (bpm <= 160) return "High energy & euphoric";
+        return "Intense & frenetic";
+    };
+
+    const apply = (value) => {
+        const bpm = Math.max(41, Math.min(160, Math.round(Number(value) || 70)));
+        strip.style.setProperty("--vu-bpm", String(bpm));
+        bpmOut.textContent = String(bpm);
+        caption.textContent = describe(bpm);
+    };
+
+    apply(slider.value);
+    slider.addEventListener("input", () => apply(slider.value), { passive: true });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     populateBackdropGalleries();
     applyTheme(getPreferredTheme());
@@ -720,8 +782,10 @@ document.addEventListener("DOMContentLoaded", () => {
     setupHeroParallaxLegacy();
     setupProjectCardStacks();
     setupDjMixerProjects();
+    setupHomeVuControls();
     setupTypewriterElements();
     setupTypewriterHeadlines();
     setupInteractiveCursor();
 
 });
+
