@@ -1,3 +1,4 @@
+// Codex-comment-header: Client-side behavior and interactions for this file.
 ﻿const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 /** Virtual start time (ms): shared timeline across navigations (do not overwrite from pagehide â€” WAAPI currentTime is often 0 during teardown). */
@@ -713,6 +714,42 @@ function setupDjMixerProjects() {
 
     wireJog(leftJog, -1);
     wireJog(rightJog, 1);
+
+    let cardPointerStartX = null;
+    let cardPointerStartY = null;
+    card.addEventListener("pointerdown", (event) => {
+        const target = event.target;
+        if (target instanceof Element && target.closest("a, button")) {
+            cardPointerStartX = null;
+            cardPointerStartY = null;
+            return;
+        }
+        cardPointerStartX = event.clientX;
+        cardPointerStartY = event.clientY;
+    });
+
+    card.addEventListener("pointerup", (event) => {
+        if (cardPointerStartX == null || cardPointerStartY == null) {
+            return;
+        }
+        const dx = event.clientX - cardPointerStartX;
+        const dy = event.clientY - cardPointerStartY;
+        cardPointerStartX = null;
+        cardPointerStartY = null;
+
+        if (Math.abs(dx) > 34 && Math.abs(dx) > Math.abs(dy)) {
+            if (dx < 0) {
+                go(1, rightJog);
+            } else {
+                go(-1, leftJog);
+            }
+            return;
+        }
+
+        if (Math.abs(dx) < 10 && Math.abs(dy) < 10) {
+            go(1, rightJog);
+        }
+    });
 
     window.addEventListener("keydown", (event) => {
         const key = event.key;

@@ -1,3 +1,4 @@
+// Codex-comment-header: Client-side behavior and interactions for this file.
 (function () {
     const btn = document.getElementById("toggle-facts");
     const panel = document.getElementById("fun-fact-content");

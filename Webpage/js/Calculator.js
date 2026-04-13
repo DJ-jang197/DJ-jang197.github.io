@@ -1,3 +1,4 @@
+// Codex-comment-header: Client-side behavior and interactions for this file.
 // javascript file -- with the help of others making this seperate file
 document.addEventListener('DOMContentLoaded', function() {
     let equation = ''; // records the equation in a variable

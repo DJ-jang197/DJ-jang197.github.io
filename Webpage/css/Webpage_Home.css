@@ -1,3 +1,4 @@
+/* Codex-comment-header: Styles and visual behavior for this file. */
 /* Daniel Jang — palette #3F194D #68097E #C91C7A #E8675C #FFCA06 */
 
 :root {
@@ -64,8 +65,9 @@ body.site-redesign {
     --page-heading-display: var(--yellow);
     --page-accent: var(--yellow);
     --project-card-title: #68097e;
-    --spotlight-inner-text: #1a1420;
+    --spotlight-inner-text: #ffffff;
     --spotlight-meta: rgba(255, 202, 6, 0.92);
+    --hero-daniel-tone: #fff;
 }
 
 body.site-redesign::before {
@@ -371,6 +373,7 @@ html:not([data-theme="dark"]) body.site-redesign {
     --project-card-title: #9554b8;
     --spotlight-inner-text: #141018;
     --spotlight-meta: #7a2f96;
+    --hero-daniel-tone: #3f194d;
 }
 
 html:not([data-theme="dark"]) body.site-redesign .site-nav {
@@ -414,7 +417,9 @@ html:not([data-theme="dark"]) body.site-redesign .nav-brand:focus-visible {
 
 html:not([data-theme="dark"]) body.site-redesign .hero-daniel {
     color: #3f194d;
-    text-shadow: 0 0 12px rgba(255, 255, 255, 0.6);
+    text-shadow:
+        0 0 12px rgba(177, 99, 255, 0.45),
+        0 0 24px rgba(81, 21, 140, 0.28);
 }
 
 html:not([data-theme="dark"]) body.site-redesign .hero-jang {
@@ -426,12 +431,11 @@ html:not([data-theme="dark"]) body.site-redesign .hero-jang {
 
 html:not([data-theme="dark"]) body.site-redesign .hero-quote-neon,
 html:not([data-theme="dark"]) body.site-redesign .hero-typewriter {
-    color: #5c1a52;
+    color: var(--hero-daniel-tone);
     text-shadow: 0 0 10px rgba(201, 28, 122, 0.3);
 }
 
 html:not([data-theme="dark"]) body.site-redesign .hero-kicker {
-    color: #2f1a3b;
     font-weight: 600;
 }
 
@@ -490,7 +494,8 @@ html:not([data-theme="dark"]) body.site-redesign .btn-deck {
     box-shadow:
         inset 0 1px 0 rgba(255, 255, 255, 0.18),
         0 2px 0 #3f194d,
-        0 0 20px rgba(201, 28, 122, 0.25);
+        0 0 24px rgba(177, 99, 255, 0.34),
+        0 0 12px rgba(81, 21, 140, 0.24);
 }
 
 html:not([data-theme="dark"]) body.site-redesign .btn-deck:hover,
@@ -501,8 +506,15 @@ html:not([data-theme="dark"]) body.site-redesign .btn-deck:focus-visible {
     box-shadow:
         inset 0 1px 0 rgba(255, 255, 255, 0.22),
         0 2px 0 #3f194d,
-        0 0 22px rgba(255, 202, 6, 0.35);
+        0 0 28px rgba(177, 99, 255, 0.45),
+        0 0 16px rgba(81, 21, 140, 0.3);
     outline: none;
+}
+
+.hero-cta--single .btn-deck {
+    min-width: 9.25rem;
+    padding: 0.88rem 1.45rem;
+    font-size: 0.8rem;
 }
 
 html:not([data-theme="dark"]) body.site-redesign .project-spotlight-actions .btn-deck {
@@ -659,7 +671,7 @@ html:not([data-theme="dark"]) .backdrop-gallery__slide {
     font-size: clamp(1.05rem, 3.6vw, 1.65rem);
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: #fff;
+    color: var(--hero-daniel-tone);
     margin: 0.35rem 0 0.75rem;
     min-height: 1.35em;
     text-shadow:
@@ -672,7 +684,7 @@ html:not([data-theme="dark"]) .backdrop-gallery__slide {
     font-size: clamp(0.7rem, 2vw, 0.85rem);
     letter-spacing: 0.28em;
     text-transform: uppercase;
-    color: color-mix(in srgb, var(--white) 88%, var(--lavender-glow));
+    color: var(--hero-daniel-tone);
     margin: 0 0 0.55rem;
     text-shadow: 0 1px 8px rgba(0, 0, 0, 0.65);
 }
@@ -704,7 +716,7 @@ html:not([data-theme="dark"]) .backdrop-gallery__slide {
 }
 
 .hero-daniel {
-    color: #fff;
+    color: var(--hero-daniel-tone);
     text-shadow:
         0 0 6px rgba(255, 255, 255, 0.45),
         0 0 18px rgba(232, 103, 92, 0.35);
@@ -1249,10 +1261,13 @@ body.site-redesign h2,
 body.site-redesign h3,
 body.site-redesign .about-page-title,
 body.site-redesign .projects-title,
-body.site-redesign .contact-shell__title {
+body.site-redesign .contact-shell__title,
+body.site-redesign .home-nav-hint__title,
+body.site-redesign .fun-facts-heading {
+    color: var(--yellow);
     text-shadow:
-        0 0 18px rgba(255, 202, 6, 0.52),
-        0 0 34px rgba(201, 28, 122, 0.34);
+        0 0 8px rgba(255, 202, 6, 0.5),
+        0 0 20px rgba(255, 202, 6, 0.28);
 }
 
 /* Glow for “What could possibly go wrong?” */
@@ -1267,10 +1282,13 @@ html:not([data-theme="dark"]) body.site-redesign h2,
 html:not([data-theme="dark"]) body.site-redesign h3,
 html:not([data-theme="dark"]) body.site-redesign .about-page-title,
 html:not([data-theme="dark"]) body.site-redesign .projects-title,
-html:not([data-theme="dark"]) body.site-redesign .contact-shell__title {
+html:not([data-theme="dark"]) body.site-redesign .contact-shell__title,
+html:not([data-theme="dark"]) body.site-redesign .home-nav-hint__title,
+html:not([data-theme="dark"]) body.site-redesign .fun-facts-heading {
+    color: #68097e;
     text-shadow:
-        0 0 18px rgba(149, 84, 184, 0.48),
-        0 0 34px rgba(104, 9, 126, 0.3);
+        0 0 14px rgba(104, 9, 126, 0.45),
+        0 0 28px rgba(201, 28, 122, 0.35);
 }
 
 html[data-theme="dark"] body.site-redesign .hero-kicker,
@@ -1286,18 +1304,12 @@ html[data-theme="dark"] body.site-redesign .nav-links a {
     color: #ffffff !important;
 }
 
-html[data-theme="dark"] body.site-redesign .hero-kicker--coop {
-    color: var(--yellow) !important;
-    text-shadow:
-        0 0 14px rgba(255, 202, 6, 0.5),
-        0 0 26px rgba(201, 28, 122, 0.22);
+body.site-redesign .hero-kicker--coop {
+    color: var(--palette-gold);
 }
 
 html:not([data-theme="dark"]) body.site-redesign .hero-kicker--coop {
-    color: #3f194d;
-    text-shadow:
-        0 0 14px rgba(149, 84, 184, 0.4),
-        0 0 26px rgba(104, 9, 126, 0.26);
+    color: #68097e;
 }
 
 .about-vibes {
@@ -2478,7 +2490,7 @@ html:not([data-theme="dark"]) body.site-redesign .about-vibes__label {
 }
 
 .project-spotlight {
-    background: color-mix(in srgb, var(--purple-deep) 6%, white);
+    background: color-mix(in srgb, var(--purple-mid) 30%, #171020);
     border: 2px solid color-mix(in srgb, var(--pink-neon) 45%, #ddd);
     border-radius: 1rem;
     padding: 1.5rem var(--page-panel-pad-x);
@@ -2586,6 +2598,18 @@ html:not([data-theme="dark"]) body.site-redesign .about-vibes__label {
     color: var(--yellow);
     border-color: var(--yellow);
     background: color-mix(in srgb, var(--purple-mid) 55%, var(--btn-shade));
+}
+
+html[data-theme="dark"] body.site-redesign .project-spotlight-actions .btn-deck:hover,
+html[data-theme="dark"] body.site-redesign .project-spotlight-actions .btn-deck:focus-visible {
+    color: #fff;
+    border-color: var(--pink-neon);
+    background: color-mix(in srgb, var(--purple-mid) 64%, var(--btn-shade-hover));
+    box-shadow:
+        inset 0 1px 0 color-mix(in srgb, white 14%, transparent),
+        0 2px 0 rgba(0, 0, 0, 0.45),
+        0 0 18px rgba(177, 99, 255, 0.38);
+    transform: translateY(-1px);
 }
 
 /* ——— Contact page shell (no photos) ——— */
@@ -2712,14 +2736,19 @@ html:not([data-theme="dark"]) body.contact-layout .contact-shell__lede {
 }
 
 html:not([data-theme="dark"]) body.site-redesign.contact-layout .contact-shell__title {
+    color: #68097e;
     text-shadow:
-        0 0 14px rgba(149, 84, 184, 0.42),
-        0 0 26px rgba(104, 9, 126, 0.28);
+        0 0 14px rgba(104, 9, 126, 0.45),
+        0 0 28px rgba(201, 28, 122, 0.35);
 }
 
 html:not([data-theme="dark"]) body.contact-layout .contact-panel {
     background: rgba(255, 255, 255, 0.9);
     border-color: rgba(60, 40, 90, 0.2);
+}
+
+html:not([data-theme="dark"]) body.site-redesign .project-spotlight {
+    background: #efe6f6;
 }
 
 html:not([data-theme="dark"]) body.contact-layout .contact-panel__value:hover,
