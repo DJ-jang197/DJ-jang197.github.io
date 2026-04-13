@@ -512,9 +512,20 @@ html:not([data-theme="dark"]) body.site-redesign .btn-deck:focus-visible {
 }
 
 .hero-cta--single .btn-deck {
-    min-width: 9.25rem;
-    padding: 0.88rem 1.45rem;
-    font-size: 0.8rem;
+    min-width: 10.6rem;
+    padding: 0.95rem 1.7rem;
+    font-size: 0.84rem;
+    border-radius: 3px;
+    letter-spacing: 0.16em;
+}
+
+.hero-cta--single .btn-deck:hover,
+.hero-cta--single .btn-deck:focus-visible {
+    transform: translateY(-2px) scale(1.04);
+    box-shadow:
+        inset 0 1px 0 color-mix(in srgb, white 16%, transparent),
+        0 2px 0 color-mix(in srgb, black 55%, transparent),
+        0 0 22px rgba(177, 99, 255, 0.4);
 }
 
 html:not([data-theme="dark"]) body.site-redesign .project-spotlight-actions .btn-deck {
@@ -1346,12 +1357,13 @@ html:not([data-theme="dark"]) body.site-redesign .hero-kicker--coop {
     font-size: clamp(0.65rem, 1.8vw, 0.78rem);
     letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: var(--page-accent);
+    color: var(--page-heading-display);
     margin: 0;
     text-shadow: 0 0 10px rgba(255, 202, 6, 0.25);
 }
 
 html:not([data-theme="dark"]) body.site-redesign .about-vibes__label {
+    color: #68097e;
     text-shadow: none;
 }
 
@@ -1702,7 +1714,7 @@ html:not([data-theme="dark"]) body.site-redesign .about-vibes__label {
 @media (min-width: 960px) {
     .mixer-wrap {
         grid-template-columns: minmax(280px, 1fr) minmax(320px, 1.1fr);
-        align-items: center;
+        align-items: start;
         text-align: left;
     }
 
