@@ -402,16 +402,25 @@ html:not([data-theme="dark"]) body.site-redesign .hero-kicker {
 }
 
 html:not([data-theme="dark"]) body.site-redesign .about-chat {
-    background: var(--purple-mid);
-    border-top-color: rgba(80, 50, 110, 0.2);
+    background: color-mix(in srgb, #faf7fc 52%, transparent);
+    border-color: rgba(104, 9, 126, 0.2);
+    backdrop-filter: blur(22px) saturate(1.08);
+    -webkit-backdrop-filter: blur(22px) saturate(1.08);
+    box-shadow:
+        0 12px 40px rgba(63, 25, 77, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.85);
 }
 
 html:not([data-theme="dark"]) body.site-redesign .chat-bubble--left {
-    --bubble-fill: rgba(255, 255, 255, 0.92);
+    --bubble-fill: rgba(255, 255, 255, 0.78);
+    --bubble-border: rgba(104, 9, 126, 0.2);
+    --bubble-shadow: 0 3px 14px rgba(63, 25, 77, 0.12);
 }
 
 html:not([data-theme="dark"]) body.site-redesign .chat-bubble--right {
-    --bubble-fill: rgba(248, 244, 255, 0.95);
+    --bubble-fill: color-mix(in srgb, #e8daf0 82%, transparent);
+    --bubble-border: rgba(201, 28, 122, 0.28);
+    --bubble-shadow: 0 4px 18px rgba(104, 9, 126, 0.15);
 }
 
 html:not([data-theme="dark"]) body.site-redesign .chat-bubble p,
@@ -485,13 +494,92 @@ html:not([data-theme="dark"]) body.site-redesign .projects-hint {
     text-shadow: 0 1px 8px rgba(255, 255, 255, 0.9);
 }
 
-/* ——— Home / projects: column layout (no photo backdrop) ——— */
+/* ——— Horizontal marquee backdrop (Home + About): row of images, loops left ——— */
+.backdrop-gallery {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.backdrop-gallery::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background:
+        linear-gradient(
+            165deg,
+            rgba(63, 25, 77, 0.88) 0%,
+            rgba(63, 25, 77, 0.55) 38%,
+            rgba(40, 18, 52, 0.72) 72%,
+            rgba(28, 11, 36, 0.92) 100%
+        );
+    pointer-events: none;
+}
+
+.backdrop-gallery__track {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    height: 100%;
+    width: max-content;
+    will-change: transform;
+    /* ~15 images: scale duration vs old 5-slide strip so scroll speed stays similar */
+    animation: backdrop-gallery-marquee 216s linear infinite;
+}
+
+.backdrop-gallery--about .backdrop-gallery__track {
+    animation-duration: 288s;
+}
+
+.backdrop-gallery__slide {
+    flex: 0 0 auto;
+    width: clamp(11rem, 32vw, 22rem);
+    height: 100%;
+    min-height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+@keyframes backdrop-gallery-marquee {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .backdrop-gallery__track {
+        animation: none;
+        transform: translateX(0);
+    }
+}
+
+html:not([data-theme="dark"]) .backdrop-gallery::after {
+    background:
+        linear-gradient(
+            165deg,
+            rgba(244, 236, 250, 0.9) 0%,
+            rgba(232, 218, 242, 0.72) 42%,
+            rgba(220, 200, 232, 0.82) 100%
+        );
+}
+
+/* ——— Home: full-viewport column + backdrop ——— */
 .home-page-wrap {
     position: relative;
     width: 100%;
     min-height: calc(100svh - var(--nav-h));
     display: flex;
     flex-direction: column;
+    overflow: hidden;
     background: var(--purple-deep);
 }
 
@@ -741,6 +829,37 @@ button.btn-neon {
     transform: translateY(0);
 }
 
+/* ——— About: backdrop shell below nav ——— */
+body.about-page.site-redesign {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.page-backdrop {
+    position: relative;
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: calc(100svh - var(--nav-h));
+    overflow: hidden;
+    background: var(--purple-deep);
+}
+
+.page-backdrop__content {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+}
+
+.page-backdrop__content .about-main {
+    flex: 1 1 auto;
+}
+
 .about-main {
     padding-top: 1rem;
 }
@@ -803,12 +922,18 @@ button.btn-neon {
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    gap: 2rem;
-    background: var(--purple-mid);
-    padding: clamp(2.5rem, 6vw, 4.5rem) 1.25rem 4rem;
-    border-top: 1px solid color-mix(in srgb, var(--lavender-glow) 25%, transparent);
+    gap: 1.35rem;
     max-width: 760px;
     margin: 0 auto;
+    padding: clamp(2rem, 5vw, 3.25rem) clamp(1rem, 4vw, 1.75rem) clamp(2.5rem, 5vw, 3.5rem);
+    background: color-mix(in srgb, var(--purple-mid) 38%, transparent);
+    backdrop-filter: blur(18px) saturate(1.15);
+    -webkit-backdrop-filter: blur(18px) saturate(1.15);
+    border: 1px solid color-mix(in srgb, var(--white) 14%, transparent);
+    border-radius: 1.75rem;
+    box-shadow:
+        0 16px 48px rgba(0, 0, 0, 0.35),
+        inset 0 1px 0 color-mix(in srgb, var(--white) 12%, transparent);
 }
 
 .about-chat-inner {
@@ -820,17 +945,21 @@ button.btn-neon {
 }
 
 .chat-bubble {
-    max-width: 92%;
-    padding: 1.25rem 1.35rem 1.35rem;
+    --bubble-border: rgba(255, 255, 255, 0.32);
+    --bubble-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    max-width: min(92%, 34rem);
+    padding: 0.95rem 1.15rem 1.05rem;
     position: relative;
     font-size: 1.02rem;
+    line-height: 1.65;
     opacity: 0;
     transform: translateY(28px);
     transition:
         opacity 0.65s ease,
         transform 0.65s ease,
         filter 0.2s ease,
-        border-color 0.2s ease;
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
 .chat-bubble.is-visible {
@@ -839,59 +968,67 @@ button.btn-neon {
 }
 
 .chat-bubble.is-visible:hover {
-    filter: brightness(1.05);
+    filter: brightness(1.06);
 }
 
-/* iMessage-style: flat fill, crisp white outline, corner tail */
+/* SMS-style: asymmetric corners + glass fill + tail nib */
 .chat-bubble--left {
-    --bubble-fill: rgba(44, 34, 64, 0.94);
+    --bubble-fill: rgba(72, 64, 92, 0.62);
     align-self: flex-start;
-    background: var(--bubble-fill);
-    border: 1px solid #fff;
-    border-radius: 1.35rem;
-    box-shadow: none;
     margin-bottom: 0;
+    margin-right: auto;
+    background: var(--bubble-fill);
+    backdrop-filter: blur(14px) saturate(1.1);
+    -webkit-backdrop-filter: blur(14px) saturate(1.1);
+    border: 1px solid var(--bubble-border);
+    border-radius: 1.35rem 1.35rem 1.35rem 0.35rem;
+    box-shadow: var(--bubble-shadow);
 }
 
 .chat-bubble--left::before {
     content: "";
     position: absolute;
     z-index: 0;
-    left: 1.15rem;
-    bottom: -5px;
-    width: 11px;
-    height: 11px;
+    left: 0.95rem;
+    bottom: -6px;
+    width: 13px;
+    height: 13px;
     background: var(--bubble-fill);
-    border-right: 1px solid #fff;
-    border-bottom: 1px solid #fff;
+    border-right: 1px solid var(--bubble-border);
+    border-bottom: 1px solid var(--bubble-border);
     transform: rotate(45deg);
     border-radius: 0 0 2px 0;
+    box-shadow: -2px 2px 6px rgba(0, 0, 0, 0.12);
 }
 
 .chat-bubble--right {
-    --bubble-fill: rgba(36, 28, 52, 0.94);
+    --bubble-fill: color-mix(in srgb, var(--palette-violet) 58%, rgba(20, 8, 28, 0.75));
     align-self: flex-end;
-    background: var(--bubble-fill);
-    border: 1px solid #fff;
-    border-radius: 1.35rem;
-    box-shadow: none;
     margin-bottom: 0;
+    margin-left: auto;
+    background: var(--bubble-fill);
+    backdrop-filter: blur(14px) saturate(1.2);
+    -webkit-backdrop-filter: blur(14px) saturate(1.2);
+    border: 1px solid var(--bubble-border);
+    border-radius: 1.35rem 1.35rem 0.35rem 1.35rem;
+    box-shadow: var(--bubble-shadow);
 }
 
 .chat-bubble--right::before {
     content: "";
     position: absolute;
     z-index: 0;
-    right: 1.15rem;
+    right: 0.95rem;
     left: auto;
-    bottom: -5px;
-    width: 11px;
-    height: 11px;
+    bottom: -6px;
+    width: 13px;
+    height: 13px;
     background: var(--bubble-fill);
-    border-left: 1px solid #fff;
-    border-bottom: 1px solid #fff;
+    border-left: 1px solid var(--bubble-border);
+    border-bottom: 1px solid var(--bubble-border);
     transform: rotate(-45deg);
     border-radius: 0 0 0 2px;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.15);
 }
 
 .chat-bubble > * {
