@@ -491,13 +491,14 @@ function setupInteractiveCursor() {
     const trailEveryMs = 48;
 
     document.addEventListener("mousemove", (event) => {
+        cursor.classList.remove("is-hidden");
         cursor.style.left = `${event.clientX}px`;
         cursor.style.top = `${event.clientY}px`;
 
         const target = event.target;
         const interactive =
             target instanceof Element &&
-            (target.closest("a, button, input, textarea, select, .dj-jog, .nav-social-link, .theme-toggle") !== null);
+            (target.closest("a, button, input, textarea, select, .dj-jog, .nav-social-link, .theme-toggle, .nav-brand") !== null);
         cursor.classList.toggle("is-pointer", Boolean(interactive));
 
         const now = performance.now();
@@ -511,6 +512,13 @@ function setupInteractiveCursor() {
             window.setTimeout(() => dot.remove(), 480);
         }
     });
+
+    const hide = () => {
+        cursor.classList.add("is-hidden");
+        cursor.classList.remove("is-pointer");
+    };
+    window.addEventListener("blur", hide);
+    document.addEventListener("mouseleave", hide);
 }
 
 function setupDjMixerProjects() {
@@ -676,6 +684,25 @@ function setupDjMixerProjects() {
 
     wireJog(leftJog, -1);
     wireJog(rightJog, 1);
+
+    window.addEventListener("keydown", (event) => {
+        const key = event.key;
+        if (key !== "ArrowLeft" && key !== "ArrowRight") {
+            return;
+        }
+        const target = event.target;
+        const typingTarget =
+            target instanceof Element && target.closest("input, textarea, select, [contenteditable='true']");
+        if (typingTarget) {
+            return;
+        }
+        event.preventDefault();
+        if (key === "ArrowLeft") {
+            go(-1, leftJog);
+        } else {
+            go(1, rightJog);
+        }
+    });
 
     render();
 }

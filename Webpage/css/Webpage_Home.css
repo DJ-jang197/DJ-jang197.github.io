@@ -63,7 +63,7 @@ body.site-redesign {
     --page-text-muted: rgba(255, 245, 249, 0.76);
     --page-heading-display: var(--yellow);
     --page-accent: var(--yellow);
-    --project-card-title: #ddc0f2;
+    --project-card-title: #68097e;
     --spotlight-inner-text: #1a1420;
     --spotlight-meta: rgba(255, 202, 6, 0.92);
 }
@@ -206,60 +206,37 @@ a:focus-visible {
 }
 
 .nav-brand {
-    --nav-logo-stroke: #fff;
-    --nav-logo-fill: #fff;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     line-height: 0;
     text-decoration: none;
     padding: 0.15rem;
+    border-radius: 999px;
+    width: 2.35rem;
+    height: 2.35rem;
+    border: 1px solid color-mix(in srgb, var(--yellow) 55%, transparent);
+    background: color-mix(in srgb, var(--purple-mid) 70%, transparent);
     transition:
         transform 0.2s ease,
         filter 0.2s ease;
 }
 
-.nav-brand__svg {
+.nav-brand__img {
     display: block;
-    height: 2.15rem;
+    height: 1.95rem;
     width: auto;
-    max-height: 2.5rem;
-}
-
-.nav-brand__phones rect,
-.nav-brand__phones path {
-    fill: none;
-    stroke: var(--nav-logo-stroke);
-    stroke-width: 2.85;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    transition: stroke 0.2s ease;
-}
-
-.nav-brand__phones .nav-brand__headband-pads {
-    stroke-width: 2.35;
-    stroke-dasharray: 4 5.5;
-    opacity: 0.92;
-}
-
-.nav-brand__phones .nav-brand__cup-inner {
-    stroke-width: 2.35;
-}
-
-.nav-brand__mark {
-    fill: var(--nav-logo-fill);
-    font-family: var(--font-display), "Arial Narrow", "Franklin Gothic Medium", sans-serif;
-    font-size: 33px;
-    font-weight: 400;
-    letter-spacing: 0.16em;
-    transition: fill 0.2s ease;
+    max-height: 1.95rem;
+    object-fit: contain;
+    vertical-align: middle;
 }
 
 .nav-brand:hover,
 .nav-brand:focus-visible {
-    --nav-logo-stroke: var(--yellow);
     transform: scale(1.05);
-    filter: drop-shadow(0 0 12px rgba(255, 202, 6, 0.55));
+    border-color: var(--pink-neon);
+    box-shadow: var(--shadow-neon-pink);
+    filter: none;
     outline: none;
 }
 
@@ -430,14 +407,8 @@ html:not([data-theme="dark"]) body.site-redesign .nav-links a[aria-current="page
         0 0 22px rgba(201, 28, 122, 0.45);
 }
 
-html:not([data-theme="dark"]) body.site-redesign .nav-brand {
-    --nav-logo-stroke: #3f194d;
-    --nav-logo-fill: #3f194d;
-}
-
 html:not([data-theme="dark"]) body.site-redesign .nav-brand:hover,
 html:not([data-theme="dark"]) body.site-redesign .nav-brand:focus-visible {
-    --nav-logo-stroke: var(--yellow);
     filter: drop-shadow(0 0 10px rgba(255, 202, 6, 0.45));
 }
 
@@ -559,14 +530,7 @@ html:not([data-theme="dark"]) body.site-redesign .projects-title {
     position: absolute;
     inset: 0;
     z-index: 2;
-    background:
-        linear-gradient(
-            165deg,
-            rgba(63, 25, 77, 0.88) 0%,
-            rgba(63, 25, 77, 0.55) 38%,
-            rgba(40, 18, 52, 0.72) 72%,
-            rgba(28, 11, 36, 0.92) 100%
-        );
+    background: rgba(40, 18, 52, 0.78);
     pointer-events: none;
 }
 
@@ -610,13 +574,7 @@ html:not([data-theme="dark"]) body.site-redesign .projects-title {
 }
 
 html:not([data-theme="dark"]) .backdrop-gallery::after {
-    background:
-        linear-gradient(
-            165deg,
-            rgba(244, 236, 250, 0.9) 0%,
-            rgba(232, 218, 242, 0.72) 42%,
-            rgba(220, 200, 232, 0.82) 100%
-        );
+    background: rgba(232, 218, 242, 0.78);
 }
 
 /* ——— Home: full-viewport column + backdrop ——— */
@@ -1053,11 +1011,11 @@ html:not([data-theme="dark"]) body.site-redesign .about-page-title {
     max-width: none;
     width: 100%;
     box-sizing: border-box;
-    border-bottom: 1px solid color-mix(in srgb, var(--lavender-glow) 28%, transparent);
+    border-bottom: none;
 }
 
 html:not([data-theme="dark"]) body.site-redesign .about-chat > .about-page-title--in-panel {
-    border-bottom-color: rgba(104, 9, 126, 0.18);
+    border-bottom-color: transparent;
 }
 
 /* Home hero only: CUE + VU (~90 BPM = one bar cycle per beat), centered as a block */
@@ -1105,7 +1063,7 @@ html:not([data-theme="dark"]) body.site-redesign .about-chat > .about-page-title
     height: 100%;
     border-radius: 2px;
     transform-origin: bottom center;
-    background: linear-gradient(to top, var(--palette-deep), var(--palette-magenta));
+    background: var(--palette-magenta);
     animation: home-deck-vu var(--vu-beat) ease-in-out infinite;
     box-shadow: 0 0 8px rgba(201, 28, 122, 0.35);
 }
@@ -1213,16 +1171,47 @@ html:not([data-theme="dark"]) body.site-redesign .home-deck-strip__cue {
 }
 
 html:not([data-theme="dark"]) body.site-redesign .home-deck-strip__meter {
-    background: linear-gradient(to top, #3f194d, #c91c7a);
+    background: #c91c7a;
     box-shadow: 0 1px 4px rgba(63, 25, 77, 0.18);
 }
 
 .about-chat--dj {
-    border-top: 1px solid color-mix(in srgb, var(--palette-gold) 35%, transparent);
+    border-top: none;
 }
 
 html:not([data-theme="dark"]) body.site-redesign .about-chat--dj {
-    border-top-color: rgba(255, 202, 6, 0.45);
+    border-top-color: transparent;
+}
+
+html[data-theme="dark"] body.site-redesign h1,
+html[data-theme="dark"] body.site-redesign h2,
+html[data-theme="dark"] body.site-redesign h3,
+html[data-theme="dark"] body.site-redesign h4,
+html[data-theme="dark"] body.site-redesign h5,
+html[data-theme="dark"] body.site-redesign h6,
+html[data-theme="dark"] body.site-redesign p,
+html[data-theme="dark"] body.site-redesign li,
+html[data-theme="dark"] body.site-redesign span,
+html[data-theme="dark"] body.site-redesign a {
+    text-shadow: none !important;
+}
+
+html[data-theme="dark"] body.site-redesign {
+    --page-text-primary: #ffffff;
+    --page-text-muted: #ffffff;
+}
+
+html[data-theme="dark"] body.site-redesign .hero-kicker,
+html[data-theme="dark"] body.site-redesign .home-nav-hint__text,
+html[data-theme="dark"] body.site-redesign .home-langs,
+html[data-theme="dark"] body.site-redesign .projects-hint,
+html[data-theme="dark"] body.site-redesign .contact-shell__lede,
+html[data-theme="dark"] body.site-redesign .contact-panel__label,
+html[data-theme="dark"] body.site-redesign .contact-panel__note,
+html[data-theme="dark"] body.site-redesign .project-spotlight-meta,
+html[data-theme="dark"] body.site-redesign .chat-label,
+html[data-theme="dark"] body.site-redesign .nav-links a {
+    color: #ffffff !important;
 }
 
 .about-vibes {
@@ -1335,6 +1324,11 @@ html:not([data-theme="dark"]) body.site-redesign .about-vibes__label {
     flex: 1 1 auto;
     margin-top: var(--page-below-nav-gap);
     margin-bottom: var(--page-below-nav-gap);
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border-color: transparent;
+    box-shadow: none;
 }
 
 .about-chat-inner {
@@ -2654,6 +2648,11 @@ html:not([data-theme="dark"]) body.contact-layout .contact-panel__value:focus-vi
     margin-bottom: 0;
 }
 
+.site-redesign .site-footer {
+    margin-left: calc(-1 * var(--page-gutter-x));
+    margin-right: calc(-1 * var(--page-gutter-x));
+}
+
 /* ——— Legacy pages (About / Projects / Contact stacks) ——— */
 body:not(.site-redesign) {
     padding-top: 6rem;
@@ -3041,6 +3040,10 @@ body:not(.site-redesign) .nav-social-link svg {
 #interactive-cursor.is-pointer {
     transform: translate(-50%, -50%) scale(1.25);
     border-color: var(--pink-neon);
+}
+
+#interactive-cursor.is-hidden {
+    opacity: 0;
 }
 
 .cursor-trail-dot {
