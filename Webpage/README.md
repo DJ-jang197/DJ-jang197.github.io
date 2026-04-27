@@ -71,6 +71,28 @@ Then visit:
 - Some assets referenced by the HTML (for example logos, resume PDF, and images) are expected to exist in sibling folders such as `images/` and `docs/`.
 - Google Fonts and some external links require internet access.
 
+## GitHub Pages Update Workflow
+
+GitHub Pages for `dj-jang197.github.io` is served from the top-level `docs/` folder (not `Webpage/`).
+
+If you edit files under `Webpage/`, mirror those same edits into matching files under top-level `docs/`, then run:
+
+```powershell
+git add docs/
+git status
+git commit -m "Update GitHub Pages site content"
+git push origin main
+```
+
+Verify your latest commit includes `docs/*` changes:
+
+```powershell
+git log --oneline -1
+git show --name-only --oneline HEAD
+```
+
+After pushing, wait 30-90 seconds and hard refresh (`Ctrl+F5`) on [https://dj-jang197.github.io/](https://dj-jang197.github.io/).
+
 ## Author
 
 Daniel Jang  
