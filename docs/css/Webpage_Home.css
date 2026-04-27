@@ -2699,10 +2699,12 @@ html[data-theme="dark"] body.site-redesign .project-spotlight-actions .btn-deck:
     border-bottom: none;
 }
 
-.contact-layout .contact-panel__label {
+.contact-layout .contact-panel__label,
+.contact-layout .contact-panel-label {
     display: block;
     font-family: var(--font-accent);
     font-size: 0.65rem;
+    font-weight: 700;
     letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--page-accent);
