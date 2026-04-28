@@ -8,7 +8,7 @@
         (function () {
             try {
                 const saved = localStorage.getItem("site-theme");
-                const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+                const prefersDark = typeof window.matchMedia === "function" && window.matchMedia("(prefers-color-scheme: dark)").matches;
                 if (saved === "dark" || (!saved && prefersDark)) {
                     document.documentElement.setAttribute("data-theme", "dark");
                 } else {
@@ -134,7 +134,7 @@
                         <div class="dj-dense-transport">
                             <span class="dj-btn dj-btn--sync">SYNC</span>
                             <span class="dj-btn dj-btn--cue">CUE</span>
-                            <span class="dj-btn dj-btn--play">â–¶</span>
+                            <span class="dj-btn dj-btn--play">&#9654;</span>
                             <span class="dj-btn">LOOP</span>
                             <span class="dj-btn">ROLL</span>
                             <span class="dj-btn">SLIP</span>

@@ -1,5 +1,16 @@
 // Codex-comment-header: Client-side behavior and interactions for this file.
-﻿const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+﻿function mediaQueryMatches(query) {
+    if (typeof window.matchMedia !== "function") {
+        return false;
+    }
+    try {
+        return window.matchMedia(query).matches;
+    } catch (_) {
+        return false;
+    }
+}
+
+const prefersReducedMotion = mediaQueryMatches("(prefers-reduced-motion: reduce)");
 
 /** Virtual start time (ms): shared timeline across navigations (do not overwrite from pagehide â€” WAAPI currentTime is often 0 during teardown). */
 const BACKDROP_MARQUEE_T0_KEY = "backdropMarqueeT0";
@@ -127,7 +138,7 @@ function getPreferredTheme() {
             return storedTheme;
         }
     } catch (_) {}
-    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    return mediaQueryMatches("(prefers-color-scheme: dark)") ? "dark" : "light";
 }
 
 function applyTheme(theme) {
@@ -503,7 +514,7 @@ function setupTypewriterHeadlines() {
 }
 
 function setupInteractiveCursor() {
-    const isTouchDevice = window.matchMedia("(hover: none), (pointer: coarse)").matches;
+    const isTouchDevice = mediaQueryMatches("(hover: none), (pointer: coarse)");
     if (isTouchDevice) {
         return;
     }
@@ -639,6 +650,8 @@ function setupDjMixerProjects() {
         transitionTo(index + delta);
     };
 
+    const supportsPointer = "PointerEvent" in window;
+
     const wireJog = (jogEl, deltaSign) => {
         let startAngle = 0;
         let accumulated = 0;
@@ -652,7 +665,7 @@ function setupDjMixerProjects() {
             return Math.atan2(event.clientY - cy, event.clientX - cx);
         };
 
-        jogEl.addEventListener("pointerdown", (event) => {
+        const onPointerDown = (event) => {
             if (event.button !== 0) {
                 return;
             }
@@ -660,17 +673,17 @@ function setupDjMixerProjects() {
             active = true;
             accumulated = 0;
             startAngle = angleFromEvent(event);
-            jogEl.setPointerCapture(event.pointerId);
-        });
+            if (supportsPointer && typeof jogEl.setPointerCapture === "function") {
+                jogEl.setPointerCapture(event.pointerId);
+            }
+        };
 
-        jogEl.addEventListener(
-            "pointermove",
-            (event) => {
-                if (!active) {
-                    return;
-                }
-                event.preventDefault();
-                const a = angleFromEvent(event);
+        const onPointerMove = (event) => {
+            if (!active) {
+                return;
+            }
+            event.preventDefault();
+            const a = angleFromEvent(event);
             let d = a - startAngle;
             if (d > Math.PI) {
                 d -= Math.PI * 2;
@@ -691,16 +704,38 @@ function setupDjMixerProjects() {
                 accumulated = 0;
                 go(-deltaSign, jogEl);
             }
-            },
-            { passive: false }
-        );
+        };
 
         const end = () => {
             active = false;
             accumulated = 0;
         };
-        jogEl.addEventListener("pointerup", end);
-        jogEl.addEventListener("pointercancel", end);
+
+        if (supportsPointer) {
+            jogEl.addEventListener("pointerdown", onPointerDown);
+            jogEl.addEventListener("pointermove", onPointerMove, { passive: false });
+            jogEl.addEventListener("pointerup", end);
+            jogEl.addEventListener("pointercancel", end);
+        } else {
+            let mouseDown = false;
+            jogEl.addEventListener("mousedown", (event) => {
+                mouseDown = true;
+                onPointerDown({ ...event, pointerId: 1, clientX: event.clientX, clientY: event.clientY });
+            });
+            window.addEventListener("mousemove", (event) => {
+                if (!mouseDown || !active) {
+                    return;
+                }
+                onPointerMove({ ...event, clientX: event.clientX, clientY: event.clientY, preventDefault: () => event.preventDefault() });
+            });
+            window.addEventListener("mouseup", () => {
+                if (!mouseDown) {
+                    return;
+                }
+                mouseDown = false;
+                end();
+            });
+        }
 
         jogEl.addEventListener("click", (e) => {
             if (dragMoved) {
@@ -717,7 +752,7 @@ function setupDjMixerProjects() {
 
     let cardPointerStartX = null;
     let cardPointerStartY = null;
-    card.addEventListener("pointerdown", (event) => {
+    const onCardPointerDown = (event) => {
         const target = event.target;
         if (target instanceof Element && target.closest("a, button")) {
             cardPointerStartX = null;
@@ -726,9 +761,9 @@ function setupDjMixerProjects() {
         }
         cardPointerStartX = event.clientX;
         cardPointerStartY = event.clientY;
-    });
+    };
 
-    card.addEventListener("pointerup", (event) => {
+    const onCardPointerUp = (event) => {
         if (cardPointerStartX == null || cardPointerStartY == null) {
             return;
         }
@@ -749,7 +784,30 @@ function setupDjMixerProjects() {
         if (Math.abs(dx) < 10 && Math.abs(dy) < 10) {
             go(1, rightJog);
         }
-    });
+    };
+
+    if (supportsPointer) {
+        card.addEventListener("pointerdown", onCardPointerDown);
+        card.addEventListener("pointerup", onCardPointerUp);
+    } else {
+        let cardMouseDown = false;
+        card.addEventListener("mousedown", (event) => {
+            cardMouseDown = true;
+            onCardPointerDown(event);
+        });
+        card.addEventListener("mouseup", (event) => {
+            if (!cardMouseDown) {
+                return;
+            }
+            cardMouseDown = false;
+            onCardPointerUp(event);
+        });
+        card.addEventListener("mouseleave", () => {
+            cardMouseDown = false;
+            cardPointerStartX = null;
+            cardPointerStartY = null;
+        });
+    }
 
     window.addEventListener("keydown", (event) => {
         const key = event.key;
