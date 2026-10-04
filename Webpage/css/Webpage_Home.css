@@ -1015,6 +1015,40 @@ body.contact-layout.site-redesign .page-backdrop__content {
     flex: 1 1 auto;
 }
 
+/* About: keep the glass panel in the viewport and scroll its contents */
+body.about-page.site-redesign {
+    height: 100svh;
+    max-height: 100svh;
+    overflow: hidden;
+}
+
+body.about-page.site-redesign .page-backdrop {
+    min-height: 0;
+    overflow: hidden;
+}
+
+body.about-page.site-redesign .page-backdrop__content {
+    min-height: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
+body.about-page.site-redesign .about-main {
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+body.about-page.site-redesign .about-chat.site-glass-panel {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in srgb, var(--yellow) 55%, transparent) transparent;
+}
+
 .about-main {
     padding: 0;
     width: 100%;
@@ -1412,6 +1446,39 @@ html:not([data-theme="dark"]) body.site-redesign .about-vibes__label {
 
 .about-fun-bullets li:last-child {
     margin-bottom: 0;
+}
+
+.about-experience {
+    width: 100%;
+    max-width: 44rem;
+    margin: 0.15rem auto 0;
+    text-align: left;
+}
+
+.about-experience__heading {
+    text-align: center;
+    margin-bottom: 0.85rem;
+}
+
+.about-role + .about-role {
+    margin-top: 1.15rem;
+}
+
+.about-role__title {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    letter-spacing: 0.06em;
+    margin: 0 0 0.25rem;
+    line-height: 1.15;
+}
+
+.about-role__meta {
+    font-family: var(--font-accent);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--page-text-muted);
+    margin: 0 0 0.5rem;
 }
 
 .fact-thread:not([hidden]) {
