@@ -19,9 +19,9 @@ The site is organized as static files, so no build step is required.
 Webpage/
 ├─ html/
 │  ├─ index.html
-│  ├─ Webpage_About.html
-│  ├─ Webpage_Projects.html
-│  ├─ Webpage_Contact.html
+│  ├─ about.html
+│  ├─ projects.html
+│  ├─ contact.html
 │  ├─ Calculator.html
 │  └─ XXWebpage-Beta.html
 ├─ css/
@@ -45,26 +45,27 @@ Webpage/
 
 ## Running Locally
 
-### Option 1: Open directly
-1. Open `html/index.html` in your browser.
+Nav links use clean URLs (`about`, not `about.html`), the same way GitHub Pages serves them. Use a server that maps `/about` to `about.html`; opening the files directly or using `python -m http.server` will 404 on nav links.
 
-### Option 2: Serve from a local web server (recommended)
-From the project root:
+From the top-level `docs/` folder:
 
 ```powershell
-python -m http.server 8000
+npx serve .
 ```
 
-Then visit:
-- [http://localhost:8000/html/index.html](http://localhost:8000/html/index.html)
+Then visit [http://localhost:3000/](http://localhost:3000/).
 
 ## Main Pages
 
-- Home: `html/index.html`
-- About: `html/Webpage_About.html`
-- Projects: `html/Webpage_Projects.html`
-- Contact: `html/Webpage_Contact.html`
-- Calculator: `html/Calculator.html`
+| Page | Live URL | File |
+| --- | --- | --- |
+| Home | `/` | `index.html` |
+| About | `/about` | `about.html` |
+| Projects | `/projects` | `projects.html` |
+| Contact | `/contact` | `contact.html` |
+| Calculator | `/Calculator` | `Calculator.html` |
+
+The old `Webpage_About.html`, `Webpage_Projects.html`, and `Webpage_Contact.html` addresses in `docs/` forward to the new URLs so existing links keep working.
 
 ## Notes
 
